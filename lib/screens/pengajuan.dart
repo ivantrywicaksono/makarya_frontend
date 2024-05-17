@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of screens;
 
 class PengajuanPage extends StatefulWidget {
   @override
@@ -17,19 +17,10 @@ class _PengajuanPageState extends State<PengajuanPage> {
         backgroundColor: Colors.brown, // ubah warna header menjadi coklat
         title: Text(
           'Pengajuan',
-          style: TextStyle(color: Colors.white), // ubah warna teks menjadi putih
+          style:
+              TextStyle(color: Colors.white), // ubah warna teks menjadi putih
         ),
         centerTitle: true, // letakkan teks header di tengah
-        leading: IconButton(
-          // ubah ikon back menjadi putih
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -53,7 +44,8 @@ class _PengajuanPageState extends State<PengajuanPage> {
                     labelText: 'Nama Karya',
                     border: OutlineInputBorder(),
                   ),
-                  style: TextStyle(fontFamily: 'Poppins'), // tambahkan font disini
+                  style:
+                      TextStyle(fontFamily: 'Poppins'), // tambahkan font disini
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Nama karya tidak boleh kosong';
@@ -77,7 +69,8 @@ class _PengajuanPageState extends State<PengajuanPage> {
                     labelText: 'Deskripsi Karya',
                     border: OutlineInputBorder(),
                   ),
-                  style: TextStyle(fontFamily: 'Poppins'), // tambahkan font disini
+                  style:
+                      TextStyle(fontFamily: 'Poppins'), // tambahkan font disini
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Deskripsi karya tidak boleh kosong';
@@ -106,7 +99,8 @@ class _PengajuanPageState extends State<PengajuanPage> {
                         padding: MaterialStateProperty.all<EdgeInsets>(
                             EdgeInsets.symmetric(vertical: 20.0)),
                         side: MaterialStateProperty.all<BorderSide>(BorderSide(
-                            color: Colors.brown)), // tambahkan garis tepi coklat
+                            color:
+                                Colors.brown)), // tambahkan garis tepi coklat
                       ),
                     ),
                     SizedBox(height: 8.0),
@@ -127,7 +121,8 @@ class _PengajuanPageState extends State<PengajuanPage> {
                         padding: MaterialStateProperty.all<EdgeInsets>(
                             EdgeInsets.symmetric(vertical: 20.0)),
                         side: MaterialStateProperty.all<BorderSide>(BorderSide(
-                            color: Colors.brown)), // tambahkan garis tepi coklat
+                            color:
+                                Colors.brown)), // tambahkan garis tepi coklat
                       ),
                     ),
                   ],
@@ -151,7 +146,10 @@ class _PengajuanPageState extends State<PengajuanPage> {
                     ),
                     style: ButtonStyle(
                       padding: MaterialStateProperty.all<EdgeInsets>(
-                          EdgeInsets.symmetric(vertical: 12.0, horizontal: 32.0)), // sesuaikan padding untuk mengecilkan tombol
+                          EdgeInsets.symmetric(
+                              vertical: 12.0,
+                              horizontal:
+                                  32.0)), // sesuaikan padding untuk mengecilkan tombol
                       backgroundColor: MaterialStateProperty.all<Color>(
                           Colors.brown), // ubah warna tombol menjadi coklat
                     ),

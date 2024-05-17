@@ -54,8 +54,19 @@ class MyApp extends StatelessWidget {
           ),
           GoRoute(
             path: '/galeri',
-            builder: (BuildContext context, GoRouterState state) => HomePage(),
-          )
+            builder: (BuildContext context, GoRouterState state) =>
+                Text("Galeri"),
+          ),
+          GoRoute(
+            path: '/komunitas',
+            builder: (BuildContext context, GoRouterState state) =>
+                Text("Komunitas"),
+          ),
+          GoRoute(
+            path: '/pengajuan',
+            builder: (BuildContext context, GoRouterState state) =>
+                PengajuanPage(),
+          ),
         ],
       ),
     ],
@@ -78,7 +89,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({
     required this.child,
     super.key,
@@ -87,11 +98,18 @@ class Home extends StatelessWidget {
   final Widget child;
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int _selectedIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).colorScheme.primary;
 
     return Scaffold(
-      body: child,
+      body: widget.child,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: primaryColor,
@@ -115,7 +133,8 @@ class Home extends StatelessWidget {
             label: 'Pengajuan',
           ),
         ],
-        currentIndex: _calculateSelectedIndex(context),
+        // currentIndex: _calculateSelectedIndex(context),
+        currentIndex: _selectedIndex,
         onTap: (int idx) => _onItemTapped(idx, context),
       ),
     );
@@ -123,26 +142,40 @@ class Home extends StatelessWidget {
 
   static int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).uri.path;
+    print(location);
     if (location.startsWith('/')) {
+      print('location 0');
       return 0;
     }
     if (location.startsWith('/galeri')) {
+      print('location 1');
       return 1;
     }
-    if (location.startsWith('/c')) {
+    if (location.startsWith('/komunitas')) {
+      print('location 2');
       return 2;
     }
+    if (location.startsWith('/pengajuan')) {
+      print('location 3');
+      return 3;
+    }
+    print('${location} not found');
     return 0;
   }
 
   void _onItemTapped(int index, BuildContext context) {
-    switch (index) {
-      case 0:
-        GoRouter.of(context).go('/');
-      case 1:
-        GoRouter.of(context).go('/galeri');
-      case 2:
-        GoRouter.of(context).go('/galeri');
-    }
+    setState(() {
+      _selectedIndex = index;
+      switch (index) {
+        case 0:
+          GoRouter.of(context).go('/');
+        case 1:
+          GoRouter.of(context).go('/galeri');
+        case 2:
+          GoRouter.of(context).go('/komunitas');
+        case 3:
+          GoRouter.of(context).go('/pengajuan');
+      }
+    });
   }
 }
