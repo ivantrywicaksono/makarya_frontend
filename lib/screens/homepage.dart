@@ -13,10 +13,23 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Homepage"),
+        // backgroundColor: Utils.primaryColor(context),
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [],
+          children: [
+            Heading(
+              heading: "Event",
+              paragraph: "Event-event teraktual dari komunitas yang Anda ikuti",
+            ),
+            EventCard(),
+            Divider(),
+            Heading(
+              heading: "Galeri Terpopuler",
+              paragraph: "Kumpulan publikasi yang sedang populer",
+            ),
+            PublikasiPost(avatar: "assets/images/publikasi.png"),
+          ],
         ),
       ),
     );

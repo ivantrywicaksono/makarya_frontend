@@ -27,9 +27,10 @@ class MyApp extends StatelessWidget {
   // GoRouter configuration
   final _router = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: '/',
+    initialLocation: '/home',
     debugLogDiagnostics: true,
     routes: <RouteBase>[
+      GoRoute(path: '/galeri', builder: (context, state) => GaleriScreen(),),
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (BuildContext context, GoRouterState state, Widget child) {
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         routes: <RouteBase>[
           /// The first screen to display in the bottom navigation bar.
           GoRoute(
-            path: '/',
+            path: '/home',
             builder: (BuildContext context, GoRouterState state) =>
                 const HomePage(),
             // routes: <RouteBase>[
@@ -54,13 +55,17 @@ class MyApp extends StatelessWidget {
           ),
           GoRoute(
             path: '/galeri',
-            builder: (BuildContext context, GoRouterState state) =>
-                Text("Galeri"),
+            builder: (BuildContext context, GoRouterState state) => Text(
+              "Galeri",
+              style: TextStyle(fontSize: 100),
+            ),
           ),
           GoRoute(
             path: '/komunitas',
-            builder: (BuildContext context, GoRouterState state) =>
-                Text("Komunitas"),
+            builder: (BuildContext context, GoRouterState state) => Text(
+              "Komunitas",
+              style: TextStyle(fontSize: 100),
+            ),
           ),
           GoRoute(
             path: '/pengajuan',
@@ -78,12 +83,20 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Makarya",
       theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Color.fromRGBO(58, 24, 5, 1),
-          primary: Color.fromRGBO(58, 24, 5, 1),
-        ),
-      ),
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+            background: Colors.white,
+            seedColor: Color.fromRGBO(58, 24, 5, 1),
+            primary: Color.fromRGBO(58, 24, 5, 1),
+          ),
+          appBarTheme: AppBarTheme(
+            backgroundColor: Color.fromRGBO(58, 24, 5, 1),
+            foregroundColor: Colors.white,
+          ),
+          dividerTheme: DividerThemeData(
+            color: Colors.black,
+            space: 0,
+          )),
       routerConfig: _router,
     );
   }
@@ -143,7 +156,7 @@ class _HomeState extends State<Home> {
   static int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).uri.path;
     print(location);
-    if (location.startsWith('/')) {
+    if (location.startsWith('/home')) {
       print('location 0');
       return 0;
     }
@@ -168,7 +181,7 @@ class _HomeState extends State<Home> {
       _selectedIndex = index;
       switch (index) {
         case 0:
-          GoRouter.of(context).go('/');
+          GoRouter.of(context).go('/home');
         case 1:
           GoRouter.of(context).go('/galeri');
         case 2:
