@@ -30,7 +30,6 @@ class MyApp extends StatelessWidget {
     initialLocation: '/home',
     debugLogDiagnostics: true,
     routes: <RouteBase>[
-      GoRoute(path: '/galeri', builder: (context, state) => GaleriScreen(),),
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (BuildContext context, GoRouterState state, Widget child) {
@@ -55,10 +54,7 @@ class MyApp extends StatelessWidget {
           ),
           GoRoute(
             path: '/galeri',
-            builder: (BuildContext context, GoRouterState state) => Text(
-              "Galeri",
-              style: TextStyle(fontSize: 100),
-            ),
+            builder: (context, state) => GaleriScreen(),
           ),
           GoRoute(
             path: '/komunitas',
