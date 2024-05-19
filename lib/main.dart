@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   // GoRouter configuration
   final _router = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: '/home',
+    initialLocation: '/',
     debugLogDiagnostics: true,
     routes: <RouteBase>[
       ShellRoute(
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         routes: <RouteBase>[
           /// The first screen to display in the bottom navigation bar.
           GoRoute(
-            path: '/home',
+            path: '/',
             builder: (BuildContext context, GoRouterState state) =>
                 const HomePage(),
             // routes: <RouteBase>[
@@ -55,6 +55,12 @@ class MyApp extends StatelessWidget {
           GoRoute(
             path: '/galeri',
             builder: (context, state) => GaleriScreen(),
+            routes: <RouteBase>[
+              GoRoute(
+                path: 'comments',
+                builder: (context, state) => CommentsScreen(),
+              )
+            ],
           ),
           GoRoute(
             path: '/komunitas',
@@ -152,7 +158,7 @@ class _HomeState extends State<Home> {
   static int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).uri.path;
     print(location);
-    if (location.startsWith('/home')) {
+    if (location.startsWith('/')) {
       print('location 0');
       return 0;
     }
@@ -177,7 +183,7 @@ class _HomeState extends State<Home> {
       _selectedIndex = index;
       switch (index) {
         case 0:
-          GoRouter.of(context).go('/home');
+          GoRouter.of(context).go('/');
         case 1:
           GoRouter.of(context).go('/galeri');
         case 2:

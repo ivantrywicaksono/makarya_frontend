@@ -1,6 +1,6 @@
 part of widgets;
 
-class PublikasiPost extends StatelessWidget {
+class PublikasiPost extends StatefulWidget {
   final String avatar;
   double size;
   final String username;
@@ -12,15 +12,36 @@ class PublikasiPost extends StatelessWidget {
       this.username = "Vina Veronika"});
 
   @override
+  State<PublikasiPost> createState() => _PublikasiPostState();
+}
+
+class _PublikasiPostState extends State<PublikasiPost> {
+  bool _isLiked = false;
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Divider(),
-        PublikasiHead(avatar: avatar, size: size, username: username),
+        PublikasiHead(
+            avatar: widget.avatar,
+            size: widget.size,
+            username: widget.username),
         Image(image: AssetImage('assets/images/publikasi.png')),
-        PublikasiTail(nLikes: 10, nComments: 2),
+        PublikasiTail(
+          nLikes: 10,
+          nComments: 2,
+          likeOnPressed: _toggleLike,
+          isLiked: _isLiked,
+        ),
         Divider(),
       ],
     );
+  }
+
+  void _toggleLike() {
+    setState(() {
+      _isLiked = !_isLiked;
+    });
   }
 }

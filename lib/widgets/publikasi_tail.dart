@@ -2,10 +2,14 @@ part of widgets;
 
 class PublikasiTail extends StatelessWidget {
   final int nLikes, nComments;
+  final bool isLiked;
+  final VoidCallback likeOnPressed;
   const PublikasiTail({
     super.key,
     required this.nLikes,
     required this.nComments,
+    required this.likeOnPressed,
+    required this.isLiked,
   });
 
   @override
@@ -17,29 +21,49 @@ class PublikasiTail extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                icon: Icon(Icons.favorite_outline),
-                onPressed: () {},
+                constraints: BoxConstraints(),
+                padding: EdgeInsets.all(6),
+                style: const ButtonStyle(
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                onPressed: likeOnPressed,
+                isSelected: isLiked,
+                selectedIcon: Icon(
+                  CupertinoIcons.heart_fill,
+                  color: Colors.red,
+                ),
+                icon: Icon(CupertinoIcons.heart),
               ),
               Text(nLikes.toString())
             ],
           ),
           SizedBox(
-            width: 10,
+            width: 16,
           ),
           Row(
             children: [
               IconButton(
-                icon: Icon(Icons.comment_outlined),
+                constraints: BoxConstraints(),
+                padding: EdgeInsets.all(6),
+                style: const ButtonStyle(
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
+                icon: Icon(CupertinoIcons.bubble_left),
                 onPressed: () {},
               ),
               Text(nComments.toString())
             ],
           ),
           SizedBox(
-            width: 10,
+            width: 16,
           ),
           IconButton(
-            icon: Icon(Icons.send_outlined),
+            constraints: BoxConstraints(),
+            padding: EdgeInsets.all(6),
+            style: const ButtonStyle(
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            ),
+            icon: Icon(CupertinoIcons.link),
             onPressed: () {},
           ),
         ],
