@@ -36,17 +36,59 @@ class PublikasiHead extends StatelessWidget {
               )
             ],
           ),
-          PopupMenuButton(
-              itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                    PopupMenuItem(
-                      child: Text("Edit"),
-                      value: "edit",
-                    ),
-                    PopupMenuItem(
-                      child: Text("Delete"),
-                      value: "delete",
-                    ),
-                  ])
+          IconButton(
+              onPressed: () {
+                showCupertinoModalPopup(
+                  context: context,
+                  builder: (context) {
+                    return CupertinoPopupSurface(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 24.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  CupertinoIcons.delete_solid,
+                                  size: 48,
+                                ),
+                                Text(
+                                  'Hapus',
+                                  style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 24,
+                                          decoration: TextDecoration.none)),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.edit,
+                                  size: 48,
+                                ),
+                                Text(
+                                  'Ubah',
+                                  style: GoogleFonts.poppins(
+                                      textStyle: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 24,
+                                          decoration: TextDecoration.none)),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+              icon: Icon(CupertinoIcons.ellipsis_vertical))
         ],
       ),
     );

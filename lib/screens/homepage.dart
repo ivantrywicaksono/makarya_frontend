@@ -11,9 +11,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: AppBar(actions: [
+            IconButton(
+              onPressed: () {},
+              icon: Icon(CupertinoIcons.bell),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: Icon(CupertinoIcons.person_crop_circle),
+            ),],
         title: Text("Homepage"),
-        // backgroundColor: Utils.primaryColor(context),
       ),
       body: SingleChildScrollView(
         child: Column(

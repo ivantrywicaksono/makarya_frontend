@@ -63,10 +63,6 @@ class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
               label: 'Deskripsi',
               placeholder: 'Masukkan deskripsi karya Anda',
             ),
-            LabelInput(
-              label: 'Deskripsi',
-              placeholder: 'Masukkan deskripsi karya Anda',
-            ),
             SizedBox(height: 48),
             Container(
               width: MediaQuery.of(context).size.width,
