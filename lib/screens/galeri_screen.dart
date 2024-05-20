@@ -15,6 +15,14 @@ class _GaleriScreenState extends State<GaleriScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => context.go('/galeri/create'),
+        backgroundColor: Utils.primaryColor(context),
+        child: Icon(
+          CupertinoIcons.add,
+          color: Colors.white,
+        ),
+      ),
       appBar: AppBar(
         title: Text("Galeri"),
       ),

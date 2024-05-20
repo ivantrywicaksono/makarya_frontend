@@ -18,7 +18,7 @@ class EventCardState extends State<EventCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Card(surfaceTintColor: Colors.white,
       margin: EdgeInsets.symmetric(
         horizontal: 12,
         vertical: 10,

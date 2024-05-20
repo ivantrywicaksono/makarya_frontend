@@ -14,13 +14,7 @@ class _PengajuanPageState extends State<PengajuanPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.brown, // ubah warna header menjadi coklat
-        title: Text(
-          'Pengajuan',
-          style:
-              TextStyle(color: Colors.white), // ubah warna teks menjadi putih
-        ),
-        centerTitle: true, // letakkan teks header di tengah
+        title: Text('Pengajuan'),
       ),
       body: SingleChildScrollView(
         child: Padding(

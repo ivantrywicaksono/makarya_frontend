@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:makarya_frontend/screens/screens.dart';
 
 import 'package:flutter/foundation.dart';
@@ -59,7 +60,14 @@ class MyApp extends StatelessWidget {
               GoRoute(
                 path: 'comments',
                 builder: (context, state) => CommentsScreen(),
-              )
+              ),
+              GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: 'create',
+                builder: (context, state) => CreatePublikasiScreen(
+                  title: 'Tambah Publikasi',
+                ),
+              ),
             ],
           ),
           GoRoute(
@@ -132,19 +140,21 @@ class _HomeState extends State<Home> {
         unselectedItemColor: Colors.brown,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(CupertinoIcons.house_fill),
             label: 'Homepage',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
+            icon: Icon(
+              CupertinoIcons.rectangle_fill_on_rectangle_angled_fill,
+            ),
             label: 'Galeri',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notification_important_rounded),
+            icon: Icon(CupertinoIcons.person_2_fill),
             label: 'Komunitas',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notification_important_rounded),
+            icon: Icon(CupertinoIcons.doc_text_fill),
             label: 'Pengajuan',
           ),
         ],
