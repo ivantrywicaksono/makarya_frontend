@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:makarya_frontend/screens/daftar.dart';
 import 'package:makarya_frontend/screens/screens.dart';
 
 import 'package:flutter/foundation.dart';
@@ -28,9 +29,17 @@ class MyApp extends StatelessWidget {
   // GoRouter configuration
   final _router = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: '/',
+    initialLocation: '/register',
     debugLogDiagnostics: true,
     routes: <RouteBase>[
+      GoRoute(
+        path: '/register',
+        builder: (context, state) => DaftarPage(),
+      ),
+      GoRoute(
+        path: '/login',
+        builder: (context, state) => LoginScreen(),
+      ),
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (BuildContext context, GoRouterState state, Widget child) {
@@ -53,13 +62,16 @@ class MyApp extends StatelessWidget {
             //   ),
             // ],
           ),
+
           GoRoute(
             path: '/galeri',
             builder: (context, state) => GaleriScreen(),
             routes: <RouteBase>[
               GoRoute(
                 path: 'comments',
-                builder: (context, state) => CommentsScreen(),
+                builder: (context, state) => CommentsScreen(
+                  title: 'Komentar',
+                ),
               ),
               GoRoute(
                 parentNavigatorKey: _rootNavigatorKey,
