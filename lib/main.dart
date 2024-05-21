@@ -88,10 +88,8 @@ class MyApp extends StatelessWidget {
           ),
           GoRoute(
             path: '/komunitas',
-            builder: (BuildContext context, GoRouterState state) => Text(
-              "Komunitas",
-              style: TextStyle(fontSize: 100),
-            ),
+            builder: (BuildContext context, GoRouterState state) =>
+                KomunitasListPage(),
           ),
           GoRoute(
             path: '/pengajuan',

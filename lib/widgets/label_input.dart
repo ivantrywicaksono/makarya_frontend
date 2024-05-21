@@ -10,7 +10,7 @@ class LabelInput extends StatelessWidget {
   const LabelInput({
     super.key,
     required this.label,
-    required this.placeholder,
+    this.placeholder = '',
     required this.controller,
     required this.type,
     this.isObscured = false,

@@ -119,7 +119,7 @@ class _DaftarPageState extends State<DaftarPage> {
                   ),
                   LabelInput(
                     label: 'Email',
-                    placeholder: 'example.com',
+                    placeholder: 'user@example.com',
                     controller: _emailController,
                     type: TextInputType.emailAddress,
                   ),
@@ -137,10 +137,36 @@ class _DaftarPageState extends State<DaftarPage> {
                     type: TextInputType.visiblePassword,
                     isObscured: true,
                   ),
-                  SizedBox(height: 12),
+                  SizedBox(height: 18),
                   PrimaryButton(
                     text: 'Daftar',
                     onPressed: () => context.go('/login'),
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Sudah memiliki akun?',
+                        style: GoogleFonts.poppins(),
+                      ),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          minimumSize: Size.zero,
+                        ),
+                        onPressed: () => context.go('/login'),
+                        child: Text(
+                          'Masuk',
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
