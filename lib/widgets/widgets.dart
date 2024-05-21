@@ -17,3 +17,5 @@ part 'publikasi_head.dart';
 part 'publikasi_tail.dart';
 part 'publikasi_post.dart';
 part 'buttons/followme_button.dart';
+part 'label_input.dart';
+part 'buttons/primary_button.dart';

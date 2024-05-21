@@ -1,9 +1,11 @@
 library screens;
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
@@ -22,3 +24,4 @@ part 'update_publikasi_screen.dart';
 part 'login_screen.dart';
 part 'komunitas_list.dart';
 part 'splash_screen.dart';
+part 'daftar.dart';

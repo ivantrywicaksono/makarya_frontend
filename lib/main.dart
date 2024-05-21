@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:makarya_frontend/screens/daftar.dart';
 import 'package:makarya_frontend/screens/screens.dart';
 
 import 'package:flutter/foundation.dart';
@@ -28,10 +27,15 @@ class MyApp extends StatelessWidget {
 
   // GoRouter configuration
   final _router = GoRouter(
+    // redirect: (context, state) {},
     navigatorKey: _rootNavigatorKey,
-    initialLocation: '/register',
+    initialLocation: '/splash',
     debugLogDiagnostics: true,
     routes: <RouteBase>[
+      GoRoute(
+        path: '/splash',
+        builder: (context, state) => SplashScreen(),
+      ),
       GoRoute(
         path: '/register',
         builder: (context, state) => DaftarPage(),

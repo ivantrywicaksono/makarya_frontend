@@ -59,10 +59,10 @@ class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
                 style: GoogleFonts.poppins(),
               ),
             ),
-            LabelInput(
-              label: 'Deskripsi',
-              placeholder: 'Masukkan deskripsi karya Anda',
-            ),
+            // LabelInput(
+            //   label: 'Deskripsi',
+            //   placeholder: 'Masukkan deskripsi karya Anda',
+            // ),
             SizedBox(height: 48),
             Container(
               width: MediaQuery.of(context).size.width,
@@ -86,46 +86,6 @@ class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
             )
           ],
         ),
-      ),
-    );
-  }
-}
-
-class LabelInput extends StatelessWidget {
-  final String label, placeholder;
-
-  const LabelInput({
-    super.key,
-    required this.label,
-    required this.placeholder,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10, bottom: 4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(2.0),
-            child: Text(
-              label,
-              style: GoogleFonts.poppins(
-                  textStyle:
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
-            ),
-          ),
-          CupertinoTextField(
-            placeholder: placeholder,
-            style: GoogleFonts.poppins(),
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              border: Border.all(color: Utils.primaryColor(context)),
-            ),
-          ),
-        ],
       ),
     );
   }

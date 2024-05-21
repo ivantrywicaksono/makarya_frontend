@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:makarya_frontend/utils/utils.dart';
+part of screens;
 
 class DaftarPage extends StatefulWidget {
   const DaftarPage({Key? key}) : super(key: key);
@@ -12,7 +9,7 @@ class DaftarPage extends StatefulWidget {
 
 class _DaftarPageState extends State<DaftarPage> {
   final _formKey = GlobalKey<FormState>();
-  String _tipeAkunValue = 'Pengguna'; // Value untuk DropdownButtonFormField
+  String _tipeAkunValue = 'user'; // Value untuk DropdownButtonFormField
   final _nomorTeleponController = TextEditingController();
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -45,7 +42,9 @@ class _DaftarPageState extends State<DaftarPage> {
       body: SingleChildScrollView(
         padding: EdgeInsets.all(48),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(height: 24),
             Text(
               "Daftar",
               style: GoogleFonts.poppins(
@@ -54,189 +53,94 @@ class _DaftarPageState extends State<DaftarPage> {
                 fontWeight: FontWeight.w500,
               )),
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 18),
             Form(
               key: _formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    'Tipe Akun',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  DropdownButtonFormField<String>(
-                    value: _tipeAkunValue,
-                    items: const [
-                      DropdownMenuItem<String>(
-                        value: 'Pengguna',
-                        child: Text('Pengguna',
-                            style: TextStyle(fontFamily: 'Poppins')),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Tipe Akun',
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w500)),
                       ),
-                      DropdownMenuItem<String>(
-                        value: 'Komunitas',
-                        child: Text('Komunitas',
-                            style: TextStyle(fontFamily: 'Poppins')),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      setState(() {
-                        _tipeAkunValue = value!;
-                      });
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  const Text(
-                    'Nomor Telepon',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  TextFormField(
-                    controller: _nomorTeleponController,
-                    keyboardType: TextInputType.phone,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Nomor telepon tidak boleh kosong';
-                      } else if (!RegExp(r'^\d{10,15}$').hasMatch(value)) {
-                        return 'Nomor telepon tidak valid';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    style: TextStyle(fontFamily: 'Poppins'),
-                  ),
-                  const SizedBox(height: 16.0),
-                  const Text(
-                    'Username',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  TextFormField(
-                    controller: _usernameController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Username tidak boleh kosong';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    style: TextStyle(fontFamily: 'Poppins'),
-                  ),
-                  const SizedBox(height: 16.0),
-                  const Text(
-                    'Email',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  TextFormField(
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Email tidak boleh kosong';
-                      } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                          .hasMatch(value)) {
-                        return 'Format email tidak valid';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    style: TextStyle(fontFamily: 'Poppins'),
-                  ),
-                  const SizedBox(height: 16.0),
-                  const Text(
-                    'Kata Sandi',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  TextFormField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Kata sandi tidak boleh kosong';
-                      } else if (value.length < 8) {
-                        return 'Kata sandi harus terdiri dari minimal 8 karakter';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    style: TextStyle(fontFamily: 'Poppins'),
-                  ),
-                  const SizedBox(height: 16.0),
-                  const Text(
-                    'Konfirmasi Kata Sandi',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
-                    ),
-                  ),
-                  const SizedBox(height: 8.0),
-                  TextFormField(
-                    controller: _konfirmasiPasswordController,
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Konfirmasi kata sandi tidak boleh kosong';
-                      } else if (value != _passwordController.text) {
-                        return 'Konfirmasi kata sandi tidak cocok dengan kata sandi';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                    ),
-                    style: TextStyle(fontFamily: 'Poppins'),
-                  ),
-                  const SizedBox(height: 16.0),
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: _submitForm,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Utils.primaryColor(
-                            context), // Mengubah warna button menjadi coklat
-                      ),
-                      child: const Text(
-                        'Daftar',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          color:
-                              Colors.white, // Mengubah warna teks menjadi putih
+                      const SizedBox(height: 4.0),
+                      DropdownButtonFormField<String>(
+                        isDense: true,
+                        style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                        )),
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                        value: _tipeAkunValue,
+                        items: [
+                          DropdownMenuItem<String>(
+                            value: 'user',
+                            child: Text(
+                              'Pengguna',
+                            ),
+                          ),
+                          DropdownMenuItem<String>(
+                            value: 'komunitas',
+                            child: Text(
+                              'Komunitas',
+                            ),
+                          ),
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            _tipeAkunValue = value!;
+                            print(_tipeAkunValue);
+                          });
+                        },
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.all(8),
+                          border: OutlineInputBorder(),
                         ),
                       ),
-                    ),
+                    ],
+                  ),
+                  LabelInput(
+                    label: 'Username',
+                    placeholder: 'Masukkan username tanpa menggunakan spasi',
+                    controller: _usernameController,
+                    type: TextInputType.name,
+                  ),
+                  LabelInput(
+                    label: 'Nomor Telepon',
+                    placeholder: '628xxxxxxxxxx',
+                    controller: _nomorTeleponController,
+                    type: TextInputType.phone,
+                  ),
+                  LabelInput(
+                    label: 'Email',
+                    placeholder: 'example.com',
+                    controller: _emailController,
+                    type: TextInputType.emailAddress,
+                  ),
+                  LabelInput(
+                    label: 'Kata Sandi',
+                    placeholder: 'Masukkan kata sandi',
+                    controller: _passwordController,
+                    type: TextInputType.visiblePassword,
+                    isObscured: true,
+                  ),
+                  LabelInput(
+                    label: 'Konfirmasi Kata Sandi',
+                    placeholder: 'Ketik ulang kata sandi Anda',
+                    controller: _konfirmasiPasswordController,
+                    type: TextInputType.visiblePassword,
+                    isObscured: true,
+                  ),
+                  SizedBox(height: 12),
+                  PrimaryButton(
+                    text: 'Daftar',
+                    onPressed: () => context.go('/login'),
                   ),
                 ],
               ),

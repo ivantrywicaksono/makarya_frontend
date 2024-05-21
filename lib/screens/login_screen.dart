@@ -18,12 +18,12 @@ class LoginScreen extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 )),
               ),
-            LabelInput(
-                label: 'Username',
-                placeholder: 'Masukkan username Anda tanpa menggunakan spasi'),
-            LabelInput(
-                label: 'Kata Sandi', placeholder: 'Masukkan kata sandi akun Anda'),
-            TextButton(onPressed: () => context.go('/'), child: Text("Masuk"))
+            // LabelInput(
+            //     label: 'Username',
+            //     placeholder: 'Masukkan username Anda tanpa menggunakan spasi'),
+            // LabelInput(
+            //     label: 'Kata Sandi', placeholder: 'Masukkan kata sandi akun Anda'),
+            // TextButton(onPressed: () => context.go('/'), child: Text("Masuk"))
             // Align(child: TextButton(),)
           ],
         ),
