@@ -64,22 +64,25 @@ class PublikasiHead extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.edit,
-                                  size: 48,
-                                ),
-                                Text(
-                                  'Ubah',
-                                  style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 24,
-                                          decoration: TextDecoration.none)),
-                                ),
-                              ],
+                            GestureDetector(
+                              onTap: () => context.go('/galeri/edit'),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.edit,
+                                    size: 48,
+                                  ),
+                                  Text(
+                                    'Ubah',
+                                    style: GoogleFonts.poppins(
+                                        textStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 24,
+                                            decoration: TextDecoration.none)),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),

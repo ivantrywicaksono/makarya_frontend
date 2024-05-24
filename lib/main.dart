@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:makarya_frontend/screens/editprofil.dart';
 import 'package:makarya_frontend/screens/screens.dart';
 
 import 'package:flutter/foundation.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
   final _router = GoRouter(
     // redirect: (context, state) {},
     navigatorKey: _rootNavigatorKey,
+    // initialLocation: '/galeri/comments',
     initialLocation: '/splash',
     debugLogDiagnostics: true,
     routes: <RouteBase>[
@@ -55,6 +57,12 @@ class MyApp extends StatelessWidget {
             path: '/',
             builder: (BuildContext context, GoRouterState state) =>
                 const HomePage(),
+            routes: [
+              GoRoute(
+                path: 'edit-user',
+                builder: (context, state) => EditProfilePage(),
+              ),
+            ],
             // routes: <RouteBase>[
             //   // The details screen to display stacked on the inner Navigator.
             //   // This will cover screen A but not the application shell.
@@ -84,17 +92,36 @@ class MyApp extends StatelessWidget {
                   title: 'Tambah Publikasi',
                 ),
               ),
+              GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: 'edit',
+                builder: (context, state) => UpdatePublikasiScreen(
+                  title: 'Ubah Publikasi',
+                ),
+              ),
             ],
           ),
           GoRoute(
             path: '/komunitas',
             builder: (BuildContext context, GoRouterState state) =>
                 KomunitasListPage(),
+            routes: <RouteBase>[
+              GoRoute(
+                path: 'detail',
+                builder: (context, state) => DetailKomunitas(),
+              ),
+            ],
           ),
           GoRoute(
             path: '/pengajuan',
             builder: (BuildContext context, GoRouterState state) =>
-                PengajuanPage(),
+                LihatPengajuan(),
+            routes: <RouteBase>[
+              GoRoute(
+                path: 'create',
+                builder: (context, state) => PengajuanPage(),
+              ),
+            ],
           ),
         ],
       ),
@@ -155,7 +182,7 @@ class _HomeState extends State<Home> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(CupertinoIcons.house_fill),
-            label: 'Homepage',
+            label: 'Beranda',
           ),
           BottomNavigationBarItem(
             icon: Icon(

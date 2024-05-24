@@ -12,6 +12,7 @@ class CreatePublikasiScreen extends StatefulWidget {
 class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
   File? _image;
   ImagePicker picker = ImagePicker();
+  TextEditingController _deskripsiController = TextEditingController();
 
   Future getImageFromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -41,7 +42,7 @@ class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
                 borderRadius: BorderRadius.circular(12),
                 child: _image != null
                     ? Image.file(_image!)
-                    : Image.asset('assets/images/event.png'),
+                    : Image.asset('assets/images/create_message.png'),
               ),
             ),
             TextButton.icon(
@@ -59,10 +60,12 @@ class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
                 style: GoogleFonts.poppins(),
               ),
             ),
-            // LabelInput(
-            //   label: 'Deskripsi',
-            //   placeholder: 'Masukkan deskripsi karya Anda',
-            // ),
+            LabelInput(
+              controller: _deskripsiController,
+              type: TextInputType.text,
+              label: 'Deskripsi',
+              placeholder: 'Masukkan deskripsi karya Anda',
+            ),
             SizedBox(height: 48),
             Container(
               width: MediaQuery.of(context).size.width,

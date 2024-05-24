@@ -18,7 +18,8 @@ class EventCardState extends State<EventCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(surfaceTintColor: Colors.white,
+    return Card(
+      surfaceTintColor: Colors.white,
       margin: EdgeInsets.symmetric(
         horizontal: 12,
         vertical: 10,
@@ -56,7 +57,7 @@ class EventCardState extends State<EventCard> {
                 ),
                 SizedBox(width: 6),
                 Text(
-                  "07 Mei 2024",
+                  "Bank Indonesia Jember",
                   style: GoogleFonts.poppins(),
                 ),
               ],
@@ -66,7 +67,7 @@ class EventCardState extends State<EventCard> {
                 Icon(Icons.calendar_today_outlined),
                 SizedBox(width: 6),
                 Text(
-                  "Bank Indonesia Jember",
+                  "07 Mei 2024 09:00 WIB",
                   style: GoogleFonts.poppins(),
                 ),
               ],
@@ -75,7 +76,7 @@ class EventCardState extends State<EventCard> {
               children: [
                 Icon(Icons.payments_outlined),
                 SizedBox(width: 6),
-                Text("FREE"),
+                Text("Gratis"),
               ],
             ),
             SizedBox(height: 10.0),

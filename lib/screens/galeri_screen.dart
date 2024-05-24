@@ -37,10 +37,10 @@ class _GaleriScreenState extends State<GaleriScreen> {
                         () => galleryViewMode = GalleryViewMode.forYou),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.brown,
+                          // color: Colors.brown,
                           border: Border(
-                            right: BorderSide(color: Colors.black),
-                          )),
+                        right: BorderSide(color: Colors.black),
+                      )),
                       padding: EdgeInsets.symmetric(vertical: 12),
                       child: Center(
                         child: Text("Untuk Anda"),
@@ -53,7 +53,9 @@ class _GaleriScreenState extends State<GaleriScreen> {
                     onTap: () => setState(
                         () => galleryViewMode = GalleryViewMode.followed),
                     child: Container(
-                      decoration: BoxDecoration(color: Colors.amber),
+                      decoration: BoxDecoration(
+                        // color: Colors.amber,
+                      ),
                       padding: EdgeInsets.symmetric(vertical: 12),
                       child: Center(
                         child: Text("Mengikuti"),

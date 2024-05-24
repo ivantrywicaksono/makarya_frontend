@@ -6,18 +6,21 @@ class KomunitasListPage extends StatelessWidget {
   final List<Komunitas> _komunitas = [
     Komunitas(
       nama: 'Canting Creative',
-      deskripsi: 'Kami adalah sebuah komunitas yang bersemangat dalam menghidupkan kembali keindahan tradisi batik melalui sentuhan kreatif kontemporer. Dengan jalinan antara seniman, des...',
-      foto: "assets/Ellipse 1.png",
+      deskripsi:
+          'Kami adalah sebuah komunitas yang bersemangat dalam menghidupkan kembali keindahan tradisi batik melalui sentuhan kreatif kontemporer. Dengan jalinan antara seniman, des...',
+      foto: "assets/images/e1.png",
     ),
     Komunitas(
       nama: 'Batik Nusantara',
-      deskripsi: 'Kami adalah pangkalan kreatif yang menghidupkan kembali keajaiban dan keindahan warisan budaya Indonesia melalui seni batik. Di sini, kami menyatukan para seniman, desainer, dan pe',
-      foto: "assets/Ellipse 2.png",
+      deskripsi:
+          'Kami adalah pangkalan kreatif yang menghidupkan kembali keajaiban dan keindahan warisan budaya Indonesia melalui seni batik. Di sini, kami menyatukan para seniman, desainer, dan pe',
+      foto: "assets/images/e2.png",
     ),
     Komunitas(
       nama: 'Kompahat',
-      deskripsi: 'Kami adalah wadah bagi para seniman pahat dari berbagai latar belakang dan gaya untuk bersatu dalam penciptaan, eksplorasi, dan apresiasi seni pahat.',
-      foto: "assets/Ellipse 3.png",
+      deskripsi:
+          'Kami adalah wadah bagi para seniman pahat dari berbagai latar belakang dan gaya untuk bersatu dalam penciptaan, eksplorasi, dan apresiasi seni pahat.',
+      foto: "assets/images/e3.png",
     ),
   ];
 
@@ -121,20 +124,20 @@ class _KomunitasCardState extends State<KomunitasCard> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 10.0),
-                FollowMeButton(onPressed: _toggleFollower, isFollowed: _isFollowed),
+                FollowMeButton(
+                    onPressed: _toggleFollower, isFollowed: _isFollowed),
                 const SizedBox(width: 10.0),
                 ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(const Color.fromRGBO(58, 24, 5, 1)),
+                    backgroundColor: MaterialStateProperty.all(
+                        const Color.fromRGBO(58, 24, 5, 1)),
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                     ),
                   ),
-                  onPressed: () {
-                    // jika button kedua diklik, kode di sini
-                  },
+                  onPressed: () => context.go('/komunitas/detail'),
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

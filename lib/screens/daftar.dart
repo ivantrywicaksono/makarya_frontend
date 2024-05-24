@@ -107,7 +107,7 @@ class _DaftarPageState extends State<DaftarPage> {
                   ),
                   LabelInput(
                     label: 'Username',
-                    placeholder: 'Masukkan username tanpa menggunakan spasi',
+                    placeholder: 'Masukkan username Anda',
                     controller: _usernameController,
                     type: TextInputType.name,
                   ),

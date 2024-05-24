@@ -18,17 +18,18 @@ class LoginScreen extends StatelessWidget {
               child: Text(
                 "Masuk",
                 style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                  fontSize: 48,
-                  fontWeight: FontWeight.w500,
-                )),
+                  textStyle: TextStyle(
+                    fontSize: 48,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
             ),
             LabelInput(
               type: TextInputType.name,
               controller: _usernameController,
               label: 'Username',
-              placeholder: 'Masukkan username Anda tanpa menggunakan spasi',
+              placeholder: 'Masukkan username Anda',
             ),
             LabelInput(
               type: TextInputType.visiblePassword,
@@ -43,7 +44,7 @@ class LoginScreen extends StatelessWidget {
                 // onPressed: () => context.go('/forget-password'),
                 onPressed: () {},
                 child: Text(
-                  'Lupa password?',
+                  'Lupa kata sandi?',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       decoration: TextDecoration.underline,

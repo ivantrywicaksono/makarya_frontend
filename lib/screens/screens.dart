@@ -25,3 +25,5 @@ part 'login_screen.dart';
 part 'komunitas_list.dart';
 part 'splash_screen.dart';
 part 'daftar.dart';
+part 'detail_komunitas.dart';
+part 'lihatpengajuan.dart';

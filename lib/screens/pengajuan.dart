@@ -14,7 +14,7 @@ class _PengajuanPageState extends State<PengajuanPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Pengajuan'),
+        title: Text('Tambah Pengajuan'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -24,55 +24,16 @@ class _PengajuanPageState extends State<PengajuanPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Nama Karya',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins',
-                  ),
-                ),
-                TextFormField(
-                  controller: _namaController,
-                  decoration: InputDecoration(
-                    labelText: 'Nama Karya',
-                    border: OutlineInputBorder(),
-                  ),
-                  style:
-                      TextStyle(fontFamily: 'Poppins'), // tambahkan font disini
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Nama karya tidak boleh kosong';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 16.0),
-                Text(
-                  'Deskripsi Karya',
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins',
-                  ),
-                ),
-                TextFormField(
+                LabelInput(
+                    label: 'Nama Karya',
+                    controller: _namaController,
+                    type: TextInputType.name),
+                LabelInput(
+                  label: 'Deskripsi Karya',
                   controller: _deskripsiController,
-                  maxLines: 5,
-                  decoration: InputDecoration(
-                    labelText: 'Deskripsi Karya',
-                    border: OutlineInputBorder(),
-                  ),
-                  style:
-                      TextStyle(fontFamily: 'Poppins'), // tambahkan font disini
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Deskripsi karya tidak boleh kosong';
-                    }
-                    return null;
-                  },
+                  type: TextInputType.text,
                 ),
-                SizedBox(height: 16.0),
+                SizedBox(height: 18),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -93,8 +54,8 @@ class _PengajuanPageState extends State<PengajuanPage> {
                         padding: MaterialStateProperty.all<EdgeInsets>(
                             EdgeInsets.symmetric(vertical: 20.0)),
                         side: MaterialStateProperty.all<BorderSide>(BorderSide(
-                            color:
-                                Colors.brown)), // tambahkan garis tepi coklat
+                            color: Utils.primaryColor(
+                                context))), // tambahkan garis tepi coklat
                       ),
                     ),
                     SizedBox(height: 8.0),
@@ -121,33 +82,10 @@ class _PengajuanPageState extends State<PengajuanPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 16.0),
-                Align(
-                  alignment: Alignment.center,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        // Formulir valid, ajukan pengajuan
-                        // ...
-                      }
-                    },
-                    child: Text(
-                      'Ajukan',
-                      style: TextStyle(
-                        fontFamily: 'Poppins', // tambahkan font disini
-                        color: Colors.white, // ubah warna teks menjadi putih
-                      ),
-                    ),
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsets>(
-                          EdgeInsets.symmetric(
-                              vertical: 12.0,
-                              horizontal:
-                                  32.0)), // sesuaikan padding untuk mengecilkan tombol
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          Colors.brown), // ubah warna tombol menjadi coklat
-                    ),
-                  ),
+                SizedBox(height: 32.0),
+                PrimaryButton(
+                  text: 'Ajukan',
+                  onPressed: () {},
                 ),
               ],
             ),

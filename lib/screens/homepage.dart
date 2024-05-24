@@ -11,23 +11,25 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(CupertinoIcons.bell),
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(CupertinoIcons.person_crop_circle),
-            ),],
-        title: Text("Homepage"),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(CupertinoIcons.bell),
+          ),
+          IconButton(
+            onPressed: () => context.go('/edit-user'),
+            icon: Icon(CupertinoIcons.person_crop_circle),
+          ),
+        ],
+        title: Text("Beranda"),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
             Heading(
-              heading: "Event",
-              paragraph: "Event-event teraktual dari komunitas yang Anda ikuti",
+              heading: "Acara",
+              paragraph: "Acara teraktual dari komunitas yang Anda ikuti",
             ),
             EventCard(),
             Divider(),
