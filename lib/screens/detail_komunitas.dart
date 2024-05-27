@@ -9,6 +9,13 @@ class DetailKomunitas extends StatefulWidget {
 }
 
 class _DetailKomunitasState extends State<DetailKomunitas> {
+  void _launchURL(String url) async {
+    Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri)) {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +63,8 @@ class _DetailKomunitasState extends State<DetailKomunitas> {
                         ),
                       ),
                       onPressed: () {
-                        // jika button kedua diklik, kode di sini
+                        // context.go('/komunitas/1/edit');
+                        _launchURL('https://google.com');
                       },
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,

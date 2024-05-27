@@ -17,7 +17,7 @@ class _GaleriScreenState extends State<GaleriScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go('/galeri/create'),
-        backgroundColor: Utils.primaryColor(context),
+        backgroundColor: Utils.getPrimaryColor(context),
         child: Icon(
           CupertinoIcons.add,
           color: Colors.white,
@@ -54,8 +54,8 @@ class _GaleriScreenState extends State<GaleriScreen> {
                         () => galleryViewMode = GalleryViewMode.followed),
                     child: Container(
                       decoration: BoxDecoration(
-                        // color: Colors.amber,
-                      ),
+                          // color: Colors.amber,
+                          ),
                       padding: EdgeInsets.symmetric(vertical: 12),
                       child: Center(
                         child: Text("Mengikuti"),

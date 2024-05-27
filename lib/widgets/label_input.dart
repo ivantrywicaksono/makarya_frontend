@@ -44,7 +44,7 @@ class LabelInput extends StatelessWidget {
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(12)),
-              border: Border.all(color: Utils.primaryColor(context)),
+              border: Border.all(color: Utils.getPrimaryColor(context)),
             ),
           ),
         ],

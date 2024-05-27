@@ -9,9 +9,10 @@ class FollowMeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color fillColor = isFollowed ? Colors.white : Utils.primaryColor(context);
+    Color fillColor =
+        isFollowed ? Colors.white : Utils.getPrimaryColor(context);
     Color outlineColor =
-        isFollowed ? Utils.primaryColor(context) : Colors.white;
+        isFollowed ? Utils.getPrimaryColor(context) : Colors.white;
     return Expanded(
       child: InkWell(
         onTap: onPressed,

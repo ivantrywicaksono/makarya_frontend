@@ -13,7 +13,7 @@ class LihatPengajuan extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.go('/pengajuan/create'),
-        backgroundColor: Utils.primaryColor(context),
+        backgroundColor: Utils.getPrimaryColor(context),
         child: Icon(
           CupertinoIcons.add,
           color: Colors.white,
@@ -31,7 +31,7 @@ class LihatPengajuan extends StatelessWidget {
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Poppins',
-                  color: Utils.primaryColor(context), // Warna coklat
+                  color: Utils.getPrimaryColor(context), // Warna coklat
                 ),
               ),
               const SizedBox(height: 16.0),

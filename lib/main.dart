@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
 
+import 'utils/utils.dart';
+
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shellNavigatorKey =
@@ -59,6 +61,7 @@ class MyApp extends StatelessWidget {
                 const HomePage(),
             routes: [
               GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
                 path: 'edit-user',
                 builder: (context, state) => EditProfilePage(),
               ),
@@ -80,23 +83,30 @@ class MyApp extends StatelessWidget {
             builder: (context, state) => GaleriScreen(),
             routes: <RouteBase>[
               GoRoute(
-                path: 'comments',
-                builder: (context, state) => CommentsScreen(
-                  title: 'Komentar',
-                ),
+                path: ':publikasiId',
+                builder: (context, state) => GaleriScreen(),
+                routes: <RouteBase>[
+                  GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    path: 'edit',
+                    builder: (context, state) => UpdatePublikasiScreen(
+                      title: 'Ubah Publikasi',
+                    ),
+                  ),
+                  GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    path: 'comments',
+                    builder: (context, state) => CommentsScreen(
+                      title: 'Komentar',
+                    ),
+                  ),
+                ],
               ),
               GoRoute(
                 parentNavigatorKey: _rootNavigatorKey,
                 path: 'create',
                 builder: (context, state) => CreatePublikasiScreen(
                   title: 'Tambah Publikasi',
-                ),
-              ),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: 'edit',
-                builder: (context, state) => UpdatePublikasiScreen(
-                  title: 'Ubah Publikasi',
                 ),
               ),
             ],
@@ -107,8 +117,17 @@ class MyApp extends StatelessWidget {
                 KomunitasListPage(),
             routes: <RouteBase>[
               GoRoute(
-                path: 'detail',
+                path: ':komunitasId',
                 builder: (context, state) => DetailKomunitas(),
+                routes: [
+                  GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    path: 'edit',
+                    builder: (context, state) => UpdatePublikasiScreen(
+                      title: 'Ubah Publikasi',
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
@@ -137,11 +156,11 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
             background: Colors.white,
-            seedColor: Color.fromRGBO(58, 24, 5, 1),
-            primary: Color.fromRGBO(58, 24, 5, 1),
+            seedColor: Utils.primaryColor,
+            primary: Utils.primaryColor,
           ),
           appBarTheme: AppBarTheme(
-            backgroundColor: Color.fromRGBO(58, 24, 5, 1),
+            backgroundColor: Utils.primaryColor,
             foregroundColor: Colors.white,
           ),
           dividerTheme: DividerThemeData(
@@ -210,22 +229,17 @@ class _HomeState extends State<Home> {
     final String location = GoRouterState.of(context).uri.path;
     print(location);
     if (location.startsWith('/')) {
-      print('location 0');
       return 0;
     }
     if (location.startsWith('/galeri')) {
-      print('location 1');
       return 1;
     }
     if (location.startsWith('/komunitas')) {
-      print('location 2');
       return 2;
     }
     if (location.startsWith('/pengajuan')) {
-      print('location 3');
       return 3;
     }
-    print('${location} not found');
     return 0;
   }
 

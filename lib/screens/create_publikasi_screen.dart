@@ -26,7 +26,7 @@ class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Color primary = Utils.primaryColor(context);
+    Color primary = Utils.getPrimaryColor(context);
 
     return Scaffold(
       appBar: AppBar(

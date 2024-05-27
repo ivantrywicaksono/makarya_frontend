@@ -65,7 +65,7 @@ class PublikasiHead extends StatelessWidget {
                               ],
                             ),
                             GestureDetector(
-                              onTap: () => context.go('/galeri/edit'),
+                              onTap: () => context.go('/galeri/1/edit'),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [

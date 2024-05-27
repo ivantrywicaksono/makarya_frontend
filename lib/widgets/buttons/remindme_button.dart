@@ -8,9 +8,10 @@ class RemindMeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color fillColor = isReminded ? Colors.white : Utils.primaryColor(context);
+    Color fillColor =
+        isReminded ? Colors.white : Utils.getPrimaryColor(context);
     Color outlineColor =
-        isReminded ? Utils.primaryColor(context) : Colors.white;
+        isReminded ? Utils.getPrimaryColor(context) : Colors.white;
     return InkWell(
       onTap: onPressed,
       child: AnimatedContainer(

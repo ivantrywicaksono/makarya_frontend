@@ -54,7 +54,7 @@ class _PengajuanPageState extends State<PengajuanPage> {
                         padding: MaterialStateProperty.all<EdgeInsets>(
                             EdgeInsets.symmetric(vertical: 20.0)),
                         side: MaterialStateProperty.all<BorderSide>(BorderSide(
-                            color: Utils.primaryColor(
+                            color: Utils.getPrimaryColor(
                                 context))), // tambahkan garis tepi coklat
                       ),
                     ),

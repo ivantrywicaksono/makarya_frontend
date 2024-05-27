@@ -137,7 +137,7 @@ class _KomunitasCardState extends State<KomunitasCard> {
                       ),
                     ),
                   ),
-                  onPressed: () => context.go('/komunitas/detail'),
+                  onPressed: () => context.go('/komunitas/1'),
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

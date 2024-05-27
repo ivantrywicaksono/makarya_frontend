@@ -49,7 +49,7 @@ class PublikasiTail extends StatelessWidget {
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
                 icon: Icon(CupertinoIcons.bubble_left),
-                onPressed: () => context.go('/galeri/comments'),
+                onPressed: () => context.go('/galeri/1/comments'),
               ),
               Text(nComments.toString())
             ],
