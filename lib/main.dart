@@ -117,15 +117,20 @@ class MyApp extends StatelessWidget {
                 KomunitasListPage(),
             routes: <RouteBase>[
               GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: 'create',
+                builder: (context, state) => UpdatePublikasiScreen(
+                    title: 'Ubah Publikasi'), //Create Screen
+              ),
+              GoRoute(
                 path: ':komunitasId',
-                builder: (context, state) => DetailKomunitas(),
+                builder: (context, state) => DetailKomunitas(), //Read Screen
                 routes: [
                   GoRoute(
                     parentNavigatorKey: _rootNavigatorKey,
                     path: 'edit',
                     builder: (context, state) => UpdatePublikasiScreen(
-                      title: 'Ubah Publikasi',
-                    ),
+                        title: 'Ubah Publikasi'), //Update Screen
                   ),
                 ],
               ),
