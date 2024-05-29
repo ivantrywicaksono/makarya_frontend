@@ -21,7 +21,7 @@ class FollowMeButton extends StatelessWidget {
           height: 50.0,
           decoration: BoxDecoration(
             color: fillColor,
-            borderRadius: BorderRadius.circular(25.0),
+            borderRadius: BorderRadius.circular(12.0),
             border: Border.all(color: outlineColor),
           ),
           child: Center(
@@ -38,21 +38,26 @@ class FollowMeButton extends StatelessWidget {
                           ),
                         ),
                       )
-                    : Row(
-                        children: [
-                          Icon(Icons.add, size: 12, color: outlineColor),
-                          const SizedBox(width: 4),
-                          Text(
-                            'Ikuti',
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                color: outlineColor,
-                                fontSize: 12.0,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    : TextButton.icon(
+                        onPressed: () {},
+                        icon: Icon(Icons.add),
+                        label: Text('Ikuti'),
+                      )
+                // Row(
+                //     children: [
+                //       Icon(Icons.add, size: 12, color: outlineColor),
+                //       const SizedBox(width: 4),
+                //       Text(
+                //         'Ikuti',
+                //         style: GoogleFonts.poppins(
+                //           textStyle: TextStyle(
+                //             color: outlineColor,
+                //             fontSize: 12.0,
+                //           ),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
               ],
             ),
           ),
