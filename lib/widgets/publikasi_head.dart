@@ -19,22 +19,25 @@ class PublikasiHead extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              CircleAvatar(
-                foregroundImage: AssetImage(avatar),
-                radius: size,
-              ),
-              SizedBox(width: 10),
-              Text(
-                username,
-                style: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                )),
-              )
-            ],
+          InkWell(
+            onTap: () => print('userpost'),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  foregroundImage: AssetImage(avatar),
+                  radius: size,
+                ),
+                SizedBox(width: 10),
+                Text(
+                  username,
+                  style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  )),
+                )
+              ],
+            ),
           ),
           IconButton(
               onPressed: () {

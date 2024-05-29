@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:makarya_frontend/screens/editprofil.dart';
 import 'package:makarya_frontend/screens/screens.dart';
 
@@ -22,7 +23,8 @@ void main() {
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
 
-  runApp(MyApp());
+  initializeDateFormatting('id_ID', null).then((_) => runApp(MyApp()));
+  // runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -83,6 +85,13 @@ class MyApp extends StatelessWidget {
             builder: (context, state) => GaleriScreen(),
             routes: <RouteBase>[
               GoRoute(
+                parentNavigatorKey: _rootNavigatorKey,
+                path: 'create',
+                builder: (context, state) => CreatePublikasiScreen(
+                  title: 'Tambah Publikasi',
+                ),
+              ),
+              GoRoute(
                 path: ':publikasiId',
                 builder: (context, state) => GaleriScreen(),
                 routes: <RouteBase>[
@@ -101,13 +110,6 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
                 ],
-              ),
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: 'create',
-                builder: (context, state) => CreatePublikasiScreen(
-                  title: 'Tambah Publikasi',
-                ),
               ),
             ],
           ),

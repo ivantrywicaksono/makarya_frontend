@@ -5,12 +5,12 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 2), () {
       context.go('/register');
     });
 
     return Scaffold(
-      backgroundColor: Utils.getPrimaryColor(context),
+      backgroundColor: Utils.primaryColor,
       body: Center(
         child: Image(
           image: AssetImage('assets/images/logo.png'),

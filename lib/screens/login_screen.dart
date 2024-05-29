@@ -57,7 +57,13 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 18.0),
               child: PrimaryButton(
                 text: 'Masuk',
-                onPressed: () => context.go('/'),
+                onPressed: () {
+                  String username = _usernameController.text;
+                  if (username == 'user') context.go('/');
+                  else if (username == 'komunitas') context.go('/komunitas');
+                  else if (username == 'pemerintah') context.go('/pengajuan');
+                  else context.go('/');
+                },
               ),
             ),
             Row(

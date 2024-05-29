@@ -5,7 +5,9 @@ class LabelInput extends StatelessWidget {
 
   final TextEditingController controller;
   final TextInputType type;
-  final bool isObscured;
+  final bool isObscured, readOnly;
+
+  final VoidCallback? onTap;
 
   const LabelInput({
     super.key,
@@ -14,6 +16,8 @@ class LabelInput extends StatelessWidget {
     required this.controller,
     required this.type,
     this.isObscured = false,
+    this.readOnly = false,
+    this.onTap,
   });
 
   @override
@@ -36,6 +40,8 @@ class LabelInput extends StatelessWidget {
             ),
           ),
           CupertinoTextField(
+            readOnly: readOnly,
+            onTap: onTap,
             obscureText: isObscured,
             keyboardType: type,
             controller: controller,
@@ -44,7 +50,7 @@ class LabelInput extends StatelessWidget {
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(12)),
-              border: Border.all(color: Utils.getPrimaryColor(context)),
+              border: Border.all(color: Utils.primaryColor),
             ),
           ),
         ],

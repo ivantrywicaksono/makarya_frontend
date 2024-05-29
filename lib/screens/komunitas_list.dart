@@ -124,9 +124,25 @@ class _KomunitasCardState extends State<KomunitasCard> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 10.0),
-                FollowMeButton(
-                    onPressed: _toggleFollower, isFollowed: _isFollowed),
+                // FollowMeButton(
+                //     onPressed: _toggleFollower, isFollowed: _isFollowed),
                 const SizedBox(width: 10.0),
+                TextButton.icon(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Utils.primaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  onPressed: () {},
+                  icon: Icon(Icons.logout, size: 14, color: Colors.white),
+                  label: Text(
+                    'Kunjungi',
+                    style: Utils.textStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
                 ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(

@@ -14,10 +14,6 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
-            icon: Icon(CupertinoIcons.bell),
-          ),
-          IconButton(
             onPressed: () => context.go('/edit-user'),
             icon: Icon(CupertinoIcons.person_crop_circle),
           ),

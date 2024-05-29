@@ -14,10 +14,14 @@ class _GaleriScreenState extends State<GaleriScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Color fillColor = Utils.primaryColor;
+    Color textColor = Colors.white;
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.go('/galeri/create'),
-        backgroundColor: Utils.getPrimaryColor(context),
+        onPressed: () {
+          context.go('/galeri/create');
+        },
+        backgroundColor: Utils.primaryColor,
         child: Icon(
           CupertinoIcons.add,
           color: Colors.white,
@@ -37,13 +41,22 @@ class _GaleriScreenState extends State<GaleriScreen> {
                         () => galleryViewMode = GalleryViewMode.forYou),
                     child: Container(
                       decoration: BoxDecoration(
-                          // color: Colors.brown,
+                          color: galleryViewMode == GalleryViewMode.forYou
+                              ? fillColor
+                              : textColor,
                           border: Border(
-                        right: BorderSide(color: Colors.black),
-                      )),
+                            right: BorderSide(color: Colors.black),
+                          )),
                       padding: EdgeInsets.symmetric(vertical: 12),
                       child: Center(
-                        child: Text("Untuk Anda"),
+                        child: Text(
+                          "Untuk Anda",
+                          style: TextStyle(
+                            color: galleryViewMode == GalleryViewMode.forYou
+                                ? textColor
+                                : fillColor,
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -54,11 +67,20 @@ class _GaleriScreenState extends State<GaleriScreen> {
                         () => galleryViewMode = GalleryViewMode.followed),
                     child: Container(
                       decoration: BoxDecoration(
-                          // color: Colors.amber,
-                          ),
+                        color: galleryViewMode == GalleryViewMode.followed
+                            ? fillColor
+                            : textColor,
+                      ),
                       padding: EdgeInsets.symmetric(vertical: 12),
                       child: Center(
-                        child: Text("Mengikuti"),
+                        child: Text(
+                          "Mengikuti",
+                          style: TextStyle(
+                            color: galleryViewMode == GalleryViewMode.followed
+                                ? textColor
+                                : fillColor,
+                          ),
+                        ),
                       ),
                     ),
                   ),

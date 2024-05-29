@@ -11,61 +11,72 @@ class PublikasiTail extends StatelessWidget {
     required this.likeOnPressed,
     required this.isLiked,
   });
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
+              Row(
+                children: [
+                  IconButton(
+                    constraints: BoxConstraints(),
+                    padding: EdgeInsets.all(6),
+                    style: const ButtonStyle(
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    onPressed: likeOnPressed,
+                    isSelected: isLiked,
+                    selectedIcon: Icon(
+                      CupertinoIcons.heart_fill,
+                      color: Colors.red,
+                    ),
+                    icon: Icon(CupertinoIcons.heart),
+                  ),
+                  Text(nLikes.toString())
+                ],
+              ),
+              SizedBox(
+                width: 16,
+              ),
+              Row(
+                children: [
+                  IconButton(
+                    constraints: BoxConstraints(),
+                    padding: EdgeInsets.all(6),
+                    style: const ButtonStyle(
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    icon: Icon(CupertinoIcons.bubble_left),
+                    onPressed: () => context.go('/galeri/1/comments'),
+                  ),
+                  Text(nComments.toString())
+                ],
+              ),
+              SizedBox(
+                width: 16,
+              ),
               IconButton(
                 constraints: BoxConstraints(),
                 padding: EdgeInsets.all(6),
                 style: const ButtonStyle(
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
-                onPressed: likeOnPressed,
-                isSelected: isLiked,
-                selectedIcon: Icon(
-                  CupertinoIcons.heart_fill,
-                  color: Colors.red,
-                ),
-                icon: Icon(CupertinoIcons.heart),
+                icon: Icon(CupertinoIcons.link),
+                onPressed: () => context.go('/login'),
               ),
-              Text(nLikes.toString())
             ],
           ),
-          SizedBox(
-            width: 16,
+          Text(
+            'Deskripsi',
+            style: Utils.textStyle(size: 16),
+            // style: GoogleFonts.poppins(),
           ),
-          Row(
-            children: [
-              IconButton(
-                constraints: BoxConstraints(),
-                padding: EdgeInsets.all(6),
-                style: const ButtonStyle(
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
-                icon: Icon(CupertinoIcons.bubble_left),
-                onPressed: () => context.go('/galeri/1/comments'),
-              ),
-              Text(nComments.toString())
-            ],
-          ),
-          SizedBox(
-            width: 16,
-          ),
-          IconButton(
-            constraints: BoxConstraints(),
-            padding: EdgeInsets.all(6),
-            style: const ButtonStyle(
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            ),
-            icon: Icon(CupertinoIcons.link),
-            onPressed: () => context.go('/login'),
-          ),
+          Text(DateFormat.yMMMMd('id_ID').format(DateTime.now()),
+              style: Utils.textStyle(color: Colors.grey.shade700)),
         ],
       ),
     );
