@@ -6,15 +6,13 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:makarya_frontend/utils/utils.dart';
 import 'package:makarya_frontend/widgets/widgets.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+
 import '../models/models.dart';
 
 part 'homepage.dart';
