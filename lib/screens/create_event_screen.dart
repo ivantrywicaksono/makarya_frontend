@@ -123,8 +123,8 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                   context: context,
                   builder: (context) => Container(
                     height: 216,
-                    child: CupertinoTimePicker(
-                      mode: CupertinoTimePickerMode.hm,
+                    child: CupertinoTimerPicker(
+                      mode: CupertinoTimerPickerMode.hm,
                       initialTimerDuration: Duration(hours: 9),
                       onTimerDurationChanged: (timerDuration) {
                       _waktuController.text = timerDuration.toString().split('.').first.padLeft(5, '0');
