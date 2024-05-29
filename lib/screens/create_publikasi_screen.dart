@@ -42,7 +42,7 @@ class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
                 borderRadius: BorderRadius.circular(12),
                 child: _image != null
                     ? Image.file(_image!)
-                    : Image.asset('assets/images/create_message.png'),
+                    : Text('assets/images/create_message.png'),
               ),
             ),
             TextButton.icon(
