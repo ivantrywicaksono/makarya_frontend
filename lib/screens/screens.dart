@@ -29,3 +29,4 @@ part 'daftar.dart';
 part 'detail_komunitas.dart';
 part 'lihatpengajuan.dart';
 part 'create_event_screen.dart';
+part 'update_event_screen.dart';

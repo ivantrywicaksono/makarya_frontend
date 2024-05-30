@@ -35,12 +35,12 @@ class MyApp extends StatelessWidget {
     // redirect: (context, state) {},
     navigatorKey: _rootNavigatorKey,
     // initialLocation: '/galeri/comments',
-    initialLocation: '/komunitas/create',
+    initialLocation: '/splash',
     debugLogDiagnostics: true,
     routes: <RouteBase>[
       GoRoute(
         path: '/splash',
-        builder: (context, state) => SplashScreen(),
+        builder: (context, state) => UpdateEventScreen(title: 'Ubah Acara',),
       ),
       GoRoute(
         path: '/register',
@@ -131,8 +131,8 @@ class MyApp extends StatelessWidget {
                   GoRoute(
                     parentNavigatorKey: _rootNavigatorKey,
                     path: 'edit',
-                    builder: (context, state) => UpdatePublikasiScreen(
-                        title: 'Ubah Publikasi'), //Update Screen
+                    builder: (context, state) => UpdateEventScreen(
+                        title: 'Ubah Event'), //Update Screen
                   ),
                 ],
               ),
