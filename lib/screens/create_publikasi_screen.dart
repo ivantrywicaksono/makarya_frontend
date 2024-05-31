@@ -36,22 +36,42 @@ class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 18),
+            Container(
+              padding: EdgeInsets.only(top: 23, bottom: 23, left: 15, right: 15),
+              decoration: BoxDecoration(
+                border: Border.all(color: Color.fromRGBO(58, 24, 5, 1)),
+                borderRadius: BorderRadius.circular(4),
+              ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: _image != null
                     ? Image.file(_image!)
-                    : Text('assets/images/create_message.png'),
+                    : Padding(
+                      padding: const EdgeInsets.all(32),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Ukuran File tidak melebihi 2 MB',
+                            style: TextStyle(fontSize: 12.0, fontFamily: 'poppins'),
+                          ),
+                          SizedBox(height: 8.0),
+                          Text(
+                            'Gambar berformat .jpeg, .jpg atau .png',
+                            style: TextStyle(fontSize: 12.0, fontFamily: 'poppins'),
+                          ),
+                        ],
+                      ),
+                    ),
               ),
             ),
+            SizedBox(height: 12),
             TextButton.icon(
               style: ButtonStyle(
                 padding: MaterialStatePropertyAll(
-                    EdgeInsets.symmetric(vertical: 20, horizontal: 48)),
-                side: MaterialStatePropertyAll(BorderSide(color: primary)),
+                    EdgeInsets.symmetric(vertical: 20, horizontal: 90)),
+                side: MaterialStatePropertyAll(BorderSide(color: primary, width: 2)),
                 shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8))),
+                    borderRadius: BorderRadius.circular(12))),
               ),
               onPressed: () => getImageFromGallery(),
               icon: Icon(CupertinoIcons.add),
@@ -60,13 +80,14 @@ class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
                 style: GoogleFonts.poppins(),
               ),
             ),
+            SizedBox(height: 22),
             LabelInput(
               controller: _deskripsiController,
               type: TextInputType.text,
               label: 'Deskripsi',
               placeholder: 'Masukkan deskripsi karya Anda',
             ),
-            SizedBox(height: 48),
+            SizedBox(height: 50),
             Container(
               width: MediaQuery.of(context).size.width,
               child: TextButton(

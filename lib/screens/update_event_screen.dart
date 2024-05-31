@@ -1,15 +1,15 @@
 part of screens;
 
-class CreateEventScreen extends StatefulWidget {
+class UpdateEventScreen extends StatefulWidget {
   final String title;
 
-  const CreateEventScreen({super.key, required this.title});
+  const UpdateEventScreen({super.key, required this.title});
 
   @override
-  State<CreateEventScreen> createState() => _CreateEventScreenState();
+  State<UpdateEventScreen> createState() => _UpdateEventScreenState();
 }
 
-class _CreateEventScreenState extends State<CreateEventScreen> {
+class _UpdateEventScreenState extends State<UpdateEventScreen> {
   File? _image;
   ImagePicker picker = ImagePicker();
   TextEditingController _lokasiController = TextEditingController();
@@ -39,32 +39,13 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.only(top: 23, bottom: 23, left: 15, right: 15),
-              decoration: BoxDecoration(
-                border: Border.all(color: Color.fromRGBO(58, 24, 5, 1)),
-                borderRadius: BorderRadius.circular(4),
-              ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 18),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: _image != null
                     ? Image.file(_image!)
-                    : Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Ukuran File tidak melebihi 2 MB',
-                            style: TextStyle(fontSize: 12.0, fontFamily: 'poppins'),
-                          ),
-                          SizedBox(height: 8.0),
-                          Text(
-                            'Gambar berformat .jpeg, .jpg atau .png',
-                            style: TextStyle(fontSize: 12.0, fontFamily: 'poppins'),
-                          ),
-                        ],
-                      ),
-                    ),
+                    : Image.asset('assets/images/publikasi.png'),
               ),
             ),
             SizedBox(height: 12),

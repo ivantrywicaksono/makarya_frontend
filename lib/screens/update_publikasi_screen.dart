@@ -31,13 +31,14 @@ class _UpdatePublikasiScreenState extends State<UpdatePublikasiScreen> {
                 child: Image.asset('assets/images/publikasi.png'),
               ),
             ),
+            SizedBox(height: 22),
             LabelInput(
               controller: _deskripsiController,
               type: TextInputType.text,
               label: 'Deskripsi',
               placeholder: 'Masukkan deskripsi karya Anda',
             ),
-            SizedBox(height: 48),
+            SizedBox(height: 50),
             Container(
               width: MediaQuery.of(context).size.width,
               child: TextButton(
