@@ -35,7 +35,8 @@ class MyApp extends StatelessWidget {
     // redirect: (context, state) {},
     navigatorKey: _rootNavigatorKey,
     // initialLocation: '/galeri/comments',
-    initialLocation: '/komunitas/create',
+    // initialLocation: '/komunitas/create',
+    initialLocation: '/login',
     debugLogDiagnostics: true,
     routes: <RouteBase>[
       GoRoute(

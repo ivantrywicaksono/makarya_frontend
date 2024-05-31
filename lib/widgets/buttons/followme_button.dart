@@ -12,56 +12,34 @@ class FollowMeButton extends StatelessWidget {
     Color fillColor = isFollowed ? Colors.white : Utils.primaryColor;
     Color outlineColor = isFollowed ? Utils.primaryColor : Colors.white;
     return Expanded(
-      child: InkWell(
-        onTap: onPressed,
-        child: AnimatedContainer(
-          curve: Curves.easeOut,
-          duration: const Duration(milliseconds: 300),
-          // width: MediaQuery.of(context).size.width/2,
-          height: 50.0,
-          decoration: BoxDecoration(
-            color: fillColor,
-            borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(color: outlineColor),
-          ),
-          child: Center(
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                isFollowed
-                    ? Text(
-                        'Diikuti',
-                        style: GoogleFonts.poppins(
-                          textStyle: TextStyle(
-                            color: outlineColor,
-                            fontSize: 12.0,
-                          ),
-                        ),
-                      )
-                    : TextButton.icon(
-                        onPressed: () {},
-                        icon: Icon(Icons.add),
-                        label: Text('Ikuti'),
-                      )
-                // Row(
-                //     children: [
-                //       Icon(Icons.add, size: 12, color: outlineColor),
-                //       const SizedBox(width: 4),
-                //       Text(
-                //         'Ikuti',
-                //         style: GoogleFonts.poppins(
-                //           textStyle: TextStyle(
-                //             color: outlineColor,
-                //             fontSize: 12.0,
-                //           ),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-              ],
-            ),
-          ),
+      child: AnimatedContainer(
+        curve: Curves.easeOut,
+        duration: const Duration(milliseconds: 300),
+        decoration: BoxDecoration(
+          color: fillColor,
+          borderRadius: BorderRadius.circular(12.0),
+          border: Border.all(color: outlineColor),
         ),
+        child: isFollowed
+            ? TextButton(
+                onPressed: onPressed,
+                child: Text(
+                  'Diikuti',
+                  style: Utils.textStyle(color: outlineColor),
+                ),
+              )
+            : TextButton.icon(
+                onPressed: onPressed,
+                icon: Icon(
+                  Icons.add,
+                  size: 14,
+                  color: outlineColor,
+                ),
+                label: Text(
+                  'Ikuti',
+                  style: Utils.textStyle(color: outlineColor),
+                ),
+              ),
       ),
     );
   }

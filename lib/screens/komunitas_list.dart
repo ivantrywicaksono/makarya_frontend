@@ -92,7 +92,7 @@ class _KomunitasCardState extends State<KomunitasCard> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CircleAvatar(
                   backgroundImage: AssetImage(widget.komunitas.foto),
@@ -101,10 +101,9 @@ class _KomunitasCardState extends State<KomunitasCard> {
                 Expanded(
                   child: Text(
                     widget.komunitas.nama,
-                    style: const TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
+                    style: Utils.textStyle(
+                      size: 20,
+                      weight: FontWeight.w500,
                     ),
                   ),
                 ),
@@ -112,61 +111,39 @@ class _KomunitasCardState extends State<KomunitasCard> {
             ),
             Text(
               widget.komunitas.deskripsi,
-              style: const TextStyle(
-                fontSize: 15.0,
-                fontWeight: FontWeight.normal,
-                fontFamily: 'Poppins',
-              ),
+              style: Utils.textStyle(size: 15.0),
               textAlign: TextAlign.justify,
             ),
             const SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 10.0),
-                // FollowMeButton(
-                //     onPressed: _toggleFollower, isFollowed: _isFollowed),
-                const SizedBox(width: 10.0),
-                TextButton.icon(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Utils.primaryColor,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  onPressed: () {},
-                  icon: Icon(Icons.logout, size: 14, color: Colors.white),
-                  label: Text(
-                    'Kunjungi',
-                    style: Utils.textStyle(
-                      color: Colors.white,
-                    ),
-                  ),
+                FollowMeButton(
+                  onPressed: _toggleFollower,
+                  isFollowed: _isFollowed,
                 ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                        const Color.fromRGBO(58, 24, 5, 1)),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
+                const SizedBox(width: 10.0),
+                Expanded(
+                  child: InkWell(
+                    overlayColor: MaterialStatePropertyAll(Utils.primaryColor),
+                    borderRadius: BorderRadius.circular(12),
+                    child: TextButton.icon(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Utils.primaryColor,
+                      ),
+                      onPressed: () => context.go('/komunitas/1'),
+                      icon: Icon(
+                        Icons.logout,
+                        size: 14,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        'Kunjungi',
+                        style: Utils.textStyle(
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                  onPressed: () => context.go('/komunitas/1'),
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.logout, size: 14, color: Colors.white),
-                      SizedBox(width: 4),
-                      Text('Kunjungi',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.0,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'Poppins',
-                          )),
-                    ],
                   ),
                 ),
               ],

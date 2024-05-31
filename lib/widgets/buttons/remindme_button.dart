@@ -25,11 +25,9 @@ class RemindMeButton extends StatelessWidget {
         child: Center(
           child: Text(
             isReminded ? 'Diingatkan' : 'Ingatkan Saya',
-            style: GoogleFonts.poppins(
-              textStyle: TextStyle(
-                color: outlineColor,
-                fontSize: 16.0,
-              ),
+            style: Utils.textStyle(
+              color: outlineColor,
+              size: 16.0,
             ),
           ),
         ),
