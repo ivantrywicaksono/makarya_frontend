@@ -9,7 +9,7 @@ class DaftarPage extends StatefulWidget {
 
 class _DaftarPageState extends State<DaftarPage> {
   final _formKey = GlobalKey<FormState>();
-  String _tipeAkunValue = 'user'; // Value untuk DropdownButtonFormField
+  String _tipeAkunValue = 'Artist'; // Value untuk DropdownButtonFormField
   final _nomorTeleponController = TextEditingController();
   final _usernameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -26,14 +26,27 @@ class _DaftarPageState extends State<DaftarPage> {
     super.dispose();
   }
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Process the data
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Processing Data')),
-      );
+  void _submitForm() async {
+    UserService userService = UserService();
+
+    User newUser = User(
+      id: 0,
+      name: _usernameController.text,
+      email: _emailController.text,
+      password: _passwordController.text,
+      role: _tipeAkunValue,
+    );
+
+    User userData = await userService.register(newUser);
+
+    print(userData.toJson());
+    
+    if (userData.id > 0) {
+      
+    } else {
+
     }
-    context.go('/login');
+    // context.go('/login');
   }
 
   @override
@@ -80,13 +93,13 @@ class _DaftarPageState extends State<DaftarPage> {
                         value: _tipeAkunValue,
                         items: [
                           DropdownMenuItem<String>(
-                            value: 'user',
+                            value: 'Artist',
                             child: Text(
                               'Pengguna',
                             ),
                           ),
                           DropdownMenuItem<String>(
-                            value: 'komunitas',
+                            value: 'Community',
                             child: Text(
                               'Komunitas',
                             ),
@@ -140,7 +153,7 @@ class _DaftarPageState extends State<DaftarPage> {
                   SizedBox(height: 18),
                   PrimaryButton(
                     text: 'Daftar',
-                    onPressed: () => context.go('/login'),
+                    onPressed: _submitForm,
                   ),
                   SizedBox(height: 12),
                   Row(

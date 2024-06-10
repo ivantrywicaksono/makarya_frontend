@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import 'utils/utils.dart';
 
@@ -23,7 +24,15 @@ void main() {
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
 
-  initializeDateFormatting('id_ID', null).then((_) => runApp(MyApp()));
+  initializeDateFormatting('id_ID', null).then(
+    (_) => runApp(
+      MyApp(),
+      // MultiProvider(
+      //   providers: [],
+      //   child: MyApp(),
+      // ),
+    ),
+  );
   // runApp(MyApp());
 }
 
@@ -35,12 +44,14 @@ class MyApp extends StatelessWidget {
     // redirect: (context, state) {},
     navigatorKey: _rootNavigatorKey,
     // initialLocation: '/galeri/comments',
-    initialLocation: '/splash',
+    initialLocation: '/register',
     debugLogDiagnostics: true,
     routes: <RouteBase>[
       GoRoute(
         path: '/splash',
-        builder: (context, state) => UpdateEventScreen(title: 'Ubah Acara',),
+        builder: (context, state) => UpdateEventScreen(
+          title: 'Ubah Acara',
+        ),
       ),
       GoRoute(
         path: '/register',
@@ -68,16 +79,6 @@ class MyApp extends StatelessWidget {
                 builder: (context, state) => EditProfilePage(),
               ),
             ],
-            // routes: <RouteBase>[
-            //   // The details screen to display stacked on the inner Navigator.
-            //   // This will cover screen A but not the application shell.
-            //   GoRoute(
-            //     path: 'details',
-            //     builder: (BuildContext context, GoRouterState state) {
-            //       // return const DetailsScreen();
-            //     },
-            //   ),
-            // ],
           ),
 
           GoRoute(
@@ -121,8 +122,8 @@ class MyApp extends StatelessWidget {
               GoRoute(
                 parentNavigatorKey: _rootNavigatorKey,
                 path: 'create',
-                builder: (context, state) => CreateEventScreen(
-                    title: 'Tambah Acara'), //Create Screen
+                builder: (context, state) =>
+                    CreateEventScreen(title: 'Tambah Acara'), //Create Screen
               ),
               GoRoute(
                 path: ':komunitasId',
@@ -131,8 +132,8 @@ class MyApp extends StatelessWidget {
                   GoRoute(
                     parentNavigatorKey: _rootNavigatorKey,
                     path: 'edit',
-                    builder: (context, state) => UpdateEventScreen(
-                        title: 'Ubah Event'), //Update Screen
+                    builder: (context, state) =>
+                        UpdateEventScreen(title: 'Ubah Event'), //Update Screen
                   ),
                 ],
               ),
@@ -162,7 +163,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
-            background: Colors.white,
+            surface: Colors.white,
             seedColor: Utils.primaryColor,
             primary: Utils.primaryColor,
           ),
