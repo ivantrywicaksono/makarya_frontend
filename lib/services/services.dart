@@ -8,3 +8,5 @@ import '../models/models.dart';
 import '../utils/utils.dart';
 
 part 'user_service.dart';
+part 'publication_service.dart';
+part 'artist_service.dart';

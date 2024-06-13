@@ -4,23 +4,71 @@ class UserService {
   Future<User> register(User newUser) async {
     final response = await http.post(
       Utils.getApiUri('/regist'),
-      headers: Utils.requestHeaders(''),
+      headers: Utils.requestHeaders(),
       body: jsonEncode(newUser),
     );
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
 
-      print(response.body);
-      User userData = User.fromJson(data);
-      print(userData);
+      print(data);
+
+      var {
+        'id': id as int,
+        'name': name as String,
+        'email': email as String,
+      } = data;
+
+      String role = data['roles'][0]['name'] as String;
+
+      User userData = User.fromJson(
+        id: id,
+        name: name,
+        email: email,
+        role: role,
+      );
+
       return userData;
-      // return List.from(data);
-      // return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       throw Exception('Gagal mendaftar');
     }
   }
+
+  Future<User> login(User user) async {
+    final response = await http.post(
+      Utils.getApiUri('/login'),
+      headers: Utils.requestHeaders(),
+      body: jsonEncode(user),
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as Map;
+      print(data);
+
+      var {
+        'id': id as int,
+        'name': name as String,
+        'email': email as String,
+      } = data['user'];
+
+      String role = data['user']['roles'][0]['name'] as String;
+
+      User userData = User.fromJson(
+        id: id,
+        name: name,
+        email: email,
+        role: role,
+      );
+
+      print(userData);
+      return userData;
+    } else {
+      throw Exception('Gagal');
+    }
+  }
+
+  // Future<User> getProfile(User user) async {}
+  // Future<User> editProfile(User user) async {}
 }

@@ -4,14 +4,20 @@ import 'package:google_fonts/google_fonts.dart';
 class Utils {
   Utils._();
 
-  static String apiBaseUrl = 'http://192.168.1.3:8000/api';
+  static String baseUrl = 'http://192.168.1.3:8000/';
+  // static String baseUrl = 'http://192.168.188.183:8000/';
+  // static String baseUrl = 'http://makarya_backend.test/';
 
-  static Uri getApiUri(String url) {
-    return Uri.parse('http://192.168.1.3:8000/api$url');
+  static Uri getApiUri(String endpoint) {
+    return Uri.parse('${baseUrl}api$endpoint');
   }
 
-  static Map<String, String> requestHeaders(String token) => {
-        'Content-Type': 'application/json; charset=UTF-8',
+  static Map<String, String> requestHeaders({
+    String token = '',
+    String contentType = 'application/json; charset=UTF-8',
+  }) =>
+      {
+        'Content-Type': contentType,
         'Authorization': 'Bearer $token',
       };
 

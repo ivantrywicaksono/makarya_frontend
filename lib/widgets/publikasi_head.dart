@@ -3,14 +3,9 @@ part of widgets;
 class PublikasiHead extends StatelessWidget {
   const PublikasiHead({
     super.key,
-    required this.avatar,
-    required this.size,
-    required this.username,
+    required this.publication,
   });
-
-  final String avatar;
-  final double size;
-  final String username;
+  final Publication publication;
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +15,18 @@ class PublikasiHead extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           InkWell(
-            onTap: () => print('userpost'),
+            onTap: () => print(publication.artist.id),
             child: Row(
               children: [
                 CircleAvatar(
-                  foregroundImage: AssetImage(avatar),
-                  radius: size,
+                  foregroundImage: CachedNetworkImageProvider(
+                    '${Utils.baseUrl}storage/${publication.artist.image}',
+                  ),
+                  radius: 20,
                 ),
                 SizedBox(width: 10),
                 Text(
-                  username,
+                  publication.artist.name,
                   style: GoogleFonts.poppins(
                       textStyle: TextStyle(
                     fontSize: 16,

@@ -3,7 +3,7 @@ part of screens;
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  TextEditingController _usernameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -27,9 +27,9 @@ class LoginScreen extends StatelessWidget {
             ),
             LabelInput(
               type: TextInputType.name,
-              controller: _usernameController,
-              label: 'Username',
-              placeholder: 'Masukkan username Anda',
+              controller: _emailController,
+              label: 'Email',
+              placeholder: 'Masukkan email Anda',
             ),
             LabelInput(
               type: TextInputType.visiblePassword,
@@ -58,11 +58,25 @@ class LoginScreen extends StatelessWidget {
               child: PrimaryButton(
                 text: 'Masuk',
                 onPressed: () {
-                  String username = _usernameController.text;
-                  if (username == 'user') context.go('/');
-                  else if (username == 'komunitas') context.go('/komunitas');
-                  else if (username == 'pemerintah') context.go('/pengajuan');
-                  else context.go('/');
+                  User user = User(
+                    id: 0,
+                    name: '',
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    role: '',
+                  );
+                  context.read<UserProvider>().login(user).then((_) {
+                    String role = context.read<UserProvider>().user.role;
+
+                    if (role == 'Artist')
+                      context.go('/');
+                    else if (role == 'Community')
+                      context.go('/komunitas');
+                    else if (role == 'Goverment') context.go('/pengajuan');
+                  }).catchError((error) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Login gagal: $error")));
+                  });
                 },
               ),
             ),

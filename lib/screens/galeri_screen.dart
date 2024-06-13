@@ -13,7 +13,16 @@ class _GaleriScreenState extends State<GaleriScreen> {
   GalleryViewMode galleryViewMode = GalleryViewMode.forYou;
 
   @override
+  void initState() {
+    context.read<PublicationProvider>().getAll();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    List<Publication> publications =
+        context.watch<PublicationProvider>().publications;
+
     Color fillColor = Utils.primaryColor;
     Color textColor = Colors.white;
     return Scaffold(
@@ -32,6 +41,7 @@ class _GaleriScreenState extends State<GaleriScreen> {
       ),
       body: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               children: [
@@ -87,9 +97,7 @@ class _GaleriScreenState extends State<GaleriScreen> {
                 ),
               ],
             ),
-            PublikasiPost(),
-            PublikasiPost(),
-            PublikasiPost(),
+            for (Publication p in publications) PublikasiPost(publication: p),
           ],
         ),
       ),

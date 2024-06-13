@@ -4,12 +4,18 @@ class PublikasiTail extends StatelessWidget {
   final int nLikes, nComments;
   final bool isLiked;
   final VoidCallback likeOnPressed;
+
+  final String description;
+  final DateTime date;
+
   const PublikasiTail({
     super.key,
     required this.nLikes,
     required this.nComments,
     required this.likeOnPressed,
     required this.isLiked,
+    required this.description,
+    required this.date,
   });
   @override
   Widget build(BuildContext context) {
@@ -71,11 +77,11 @@ class PublikasiTail extends StatelessWidget {
             ],
           ),
           Text(
-            'Deskripsi',
+            description,
             style: Utils.textStyle(size: 16),
             // style: GoogleFonts.poppins(),
           ),
-          Text(DateFormat.yMMMMd('id_ID').format(DateTime.now()),
+          Text(DateFormat.yMMMMd('id_ID').format(date),
               style: Utils.textStyle(color: Colors.grey.shade700)),
         ],
       ),

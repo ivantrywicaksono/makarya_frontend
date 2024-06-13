@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:makarya_frontend/providers/providers.dart';
+import 'package:makarya_frontend/screens/beranda_komunitas.dart';
 import 'package:makarya_frontend/screens/editprofil.dart';
 import 'package:makarya_frontend/screens/screens.dart';
 
@@ -16,6 +18,10 @@ final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _shellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'shell');
+final GlobalKey<NavigatorState> _communityShellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'community');
+final GlobalKey<NavigatorState> _govermentShellNavigatorKey =
+    GlobalKey<NavigatorState>(debugLabel: 'goverment');
 
 void main() {
   GoogleFonts.config.allowRuntimeFetching = false;
@@ -26,14 +32,16 @@ void main() {
 
   initializeDateFormatting('id_ID', null).then(
     (_) => runApp(
-      MyApp(),
-      // MultiProvider(
-      //   providers: [],
-      //   child: MyApp(),
-      // ),
+      // MyApp(),
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => UserProvider()),
+          ChangeNotifierProvider(create: (_) => PublicationProvider()),
+        ],
+        child: MyApp(),
+      ),
     ),
   );
-  // runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -41,7 +49,15 @@ class MyApp extends StatelessWidget {
 
   // GoRouter configuration
   final _router = GoRouter(
-    // redirect: (context, state) {},
+    // redirect: (context, state) {
+    //   String test = 'c';
+    //   if (test == 'a')
+    //     return '/';
+    //   else if (test == 'c')
+    //     return '/home-komunitas';
+    //   else if (test == 'g') return '/home-pemerintah';
+    //   return null;
+    // },
     navigatorKey: _rootNavigatorKey,
     // initialLocation: '/galeri/comments',
     initialLocation: '/register',
@@ -61,7 +77,28 @@ class MyApp extends StatelessWidget {
         path: '/login',
         builder: (context, state) => LoginScreen(),
       ),
+      GoRoute(
+        path: '/home-komunitas',
+        builder: (context, state) => KomunitasListPage(),
+        routes: <RouteBase>[
+          GoRoute(
+            parentNavigatorKey: _rootNavigatorKey,
+            path: 'create',
+            builder: (context, state) =>
+                CreateEventScreen(title: 'Tambah Acara'), //Create Screen
+          ),//
+        ],
+      ),
+      GoRoute(
+        path: '/home-pemerintah',
+        builder: (context, state) => LihatPengajuan(),
+        routes: [],
+      ),
       ShellRoute(
+        // redirect: (context, state) {
+        //   if (context.read<UserProvider>().role != 'Artist') return '/login';
+        //   return null;
+        // },
         navigatorKey: _shellNavigatorKey,
         builder: (BuildContext context, GoRouterState state, Widget child) {
           return Home(child: child);
@@ -163,6 +200,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
+            background: Colors.white,
             surface: Colors.white,
             seedColor: Utils.primaryColor,
             primary: Utils.primaryColor,

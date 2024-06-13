@@ -15,12 +15,19 @@ class User {
     required this.role,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
+  factory User.fromJson({
+    required int id,
+    required String name,
+    required String email,
+    // required String password,
+    required String role,
+  }) {
     return User(
-      id: json['id'] as int,
-      name: json['name'] as String,
-      email: json['email'] as String,
-      role: json['roles'][0]['name'] as String,
+      id: id,
+      name: name,
+      email: email,
+      // password: password,
+      role: role,
     );
   }
 

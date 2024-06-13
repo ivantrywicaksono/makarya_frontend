@@ -1,15 +1,12 @@
 part of widgets;
 
 class PublikasiPost extends StatefulWidget {
-  final String avatar;
-  double size;
-  final String username;
+  final Publication publication;
 
-  PublikasiPost(
-      {super.key,
-      this.avatar = 'assets/images/avatar.png',
-      this.size = 20,
-      this.username = "Vina Veronika"});
+  PublikasiPost({
+    super.key,
+    required this.publication,
+  });
 
   @override
   State<PublikasiPost> createState() => _PublikasiPostState();
@@ -24,15 +21,18 @@ class _PublikasiPostState extends State<PublikasiPost> {
       children: [
         Divider(),
         PublikasiHead(
-            avatar: widget.avatar,
-            size: widget.size,
-            username: widget.username),
-        Image(image: AssetImage('assets/images/publikasi.png')),
+            publication: widget.publication,
+            ),
+        CachedNetworkImage(
+          imageUrl: '${Utils.baseUrl}storage/${widget.publication.image}',
+        ),
         PublikasiTail(
-          nLikes: 10,
-          nComments: 2,
+          nLikes: widget.publication.likes,
+          nComments: widget.publication.comments?.length ?? 0,
           likeOnPressed: _toggleLike,
           isLiked: _isLiked,
+          date: widget.publication.created_at,
+          description: widget.publication.description,
         ),
         Divider(),
       ],

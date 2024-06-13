@@ -26,9 +26,7 @@ class _DaftarPageState extends State<DaftarPage> {
     super.dispose();
   }
 
-  void _submitForm() async {
-    UserService userService = UserService();
-
+  void _submitForm() {
     User newUser = User(
       id: 0,
       name: _usernameController.text,
@@ -37,16 +35,16 @@ class _DaftarPageState extends State<DaftarPage> {
       role: _tipeAkunValue,
     );
 
-    User userData = await userService.register(newUser);
-
-    print(userData.toJson());
-    
-    if (userData.id > 0) {
-      
-    } else {
-
-    }
-    // context.go('/login');
+    context.read<UserProvider>().register(newUser).then(
+      (_) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Registrasi berhasil")));
+        context.go('/login');
+      },
+    ).catchError((error) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Registrasi gagal: $error")));
+    });
   }
 
   @override

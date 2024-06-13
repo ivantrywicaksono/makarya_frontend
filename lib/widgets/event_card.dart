@@ -80,7 +80,7 @@ class EventCardState extends State<EventCard> {
               ],
             ),
             SizedBox(height: 10.0),
-            RemindMeButton(onPressed: _toggleReminder, isReminded: _isReminded),
+            // RemindMeButton(onPressed: _toggleReminder, isReminded: _isReminded),
           ],
         ),
       ),

@@ -9,6 +9,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    context.read<PublicationProvider>().getAll();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +39,9 @@ class _HomePageState extends State<HomePage> {
               heading: "Galeri Terpopuler",
               paragraph: "Kumpulan publikasi yang sedang populer",
             ),
-            PublikasiPost(avatar: "assets/images/publikasi.png"),
+            PublikasiPost(
+              publication: context.watch<PublicationProvider>().publications[0],
+            ),
           ],
         ),
       ),
