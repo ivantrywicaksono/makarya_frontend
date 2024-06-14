@@ -112,6 +112,8 @@ class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
                   context
                       .read<PublicationProvider>()
                       .create(newPublication, path);
+
+                  context.pop();
                 }),
             // Container(
             //   width: MediaQuery.of(context).size.width,

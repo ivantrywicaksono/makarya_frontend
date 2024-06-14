@@ -1,15 +1,28 @@
 part of services;
 
 class UserService {
-  Future<User> register(User newUser) async {
+  Future<User> register(User newUser, String phone) async {
+    String email = newUser.email;
+    String password= newUser.password;
+    String name = newUser.name;
+    String role = newUser.role;
+
+    Map<String, dynamic> body = {
+      "email": email,
+      "password": password,
+      "name": name,
+      "role": role,
+      "phone_number": phone,
+    };
+
     final response = await http.post(
       Utils.getApiUri('/regist'),
       headers: Utils.requestHeaders(),
-      body: jsonEncode(newUser),
+      body: jsonEncode(body),
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
+      final data = jsonDecode(response.body) as Map<String, dynamic>;
 
       print(data);
 

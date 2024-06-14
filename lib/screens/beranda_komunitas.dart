@@ -1,35 +1,32 @@
-import 'package:flutter/material.dart';
+part of screens;
 
 class BerandaKomunitas extends StatefulWidget {
   const BerandaKomunitas({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _BerandaKomunitasState createState() => _BerandaKomunitasState();
 }
 
 class _BerandaKomunitasState extends State<BerandaKomunitas> {
   @override
+  void initState() {
+    super.initState();
+    context
+        .read<EventProvider>()
+        .getAll(context.read<UserProvider>().community.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Community community = context.read<UserProvider>().community;
+    List<Event> events = context.watch<EventProvider>().events;
     return Scaffold(
       appBar: AppBar(
-        leading: Theme(
-          data: Theme.of(context).copyWith(
-            iconTheme: const IconThemeData(color: Colors.white),
-          ),
-          child: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              // handle back button press
-            },
-          ),
-        ),
-        title: const Text(
+        title: Text(
           "Komunitas",
-          style: TextStyle(
+          style: Utils.textStyle(
             color: Colors.white,
-            fontSize: 20.0,
-            fontFamily: 'Poppins',
+            size: 22.0,
           ),
         ),
         backgroundColor: const Color.fromRGBO(58, 24, 5, 1),
@@ -41,14 +38,16 @@ class _BerandaKomunitasState extends State<BerandaKomunitas> {
               padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
               child: Column(
                 children: [
-                  const Row(
+                  Row(
                     children: [
                       CircleAvatar(
                         radius: 32,
-                        backgroundImage: AssetImage('assets/Ellipse 1.png'),
+                        backgroundImage: CachedNetworkImageProvider(
+                          '${Utils.baseUrl}storage/${community.image}',
+                        ),
                       ),
                       SizedBox(width: 16),
-                      Text('Canting Creative',
+                      Text(community.name,
                           style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w400,
@@ -56,8 +55,8 @@ class _BerandaKomunitasState extends State<BerandaKomunitas> {
                     ],
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                    'Kami adalah sebuah komunitas yang bersemangat dalam menghidupkan kembali keindahan tradisi batik melalui sentuhan kreatif kontemporer. Dengan jalinan antara seniman, desainer, dan pecinta batik dari berbagai latar belakang, kami tidak hanya mengenang warisan budaya, tetapi juga merayakan inovasi dalam seni tekstil. Bersama-sama, kami menjelajahi teknik-tradisional dan eksperimen daring untuk menciptakan karya-karya unik yang mencerahkan cerita-cerita baru dalam setiap helai kain.',
+                  Text(
+                    community.description,
                     style: TextStyle(
                       fontSize: 14.0,
                       fontWeight: FontWeight.normal,
@@ -66,87 +65,55 @@ class _BerandaKomunitasState extends State<BerandaKomunitas> {
                     textAlign: TextAlign.justify,
                   ),
                   const SizedBox(height: 16.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 350,
-                        height: 39,
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            side: MaterialStateProperty.all(
-                              const BorderSide(
-                                  color: Color.fromRGBO(58, 24, 5, 1),
-                                  width: 1),
-                            ),
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.white),
-                            foregroundColor: MaterialStateProperty.all(
-                                const Color.fromRGBO(58, 24, 5, 1)),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ),
-                          onPressed: () {
-                            // jika button pertama diklik, kode di sini
-                          },
-                          child: const Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(Icons.edit_square,
-                                  size: 20,
-                                  color: Color.fromRGBO(58, 24, 5, 1)),
-                              SizedBox(width: 4),
-                              Text('Edit Profil Komunitas',
-                                  style: TextStyle(
-                                    color: Color.fromRGBO(58, 24, 5, 1),
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.normal,
-                                    fontFamily: 'Poppins',
-                                  )),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 6.0),
-                  SizedBox(
-                    width: 350,
-                    height: 39,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            const Color.fromRGBO(229, 0, 0, 1)),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {
-                        // jika button kedua diklik, kode di sini
-                      },
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.logout, size: 20, color: Colors.white),
-                          SizedBox(width: 4),
-                          Text(
-                            'Keluar',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 12.0,
-                              fontWeight: FontWeight.normal,
-                              fontFamily: 'Poppins',
-                            ),
-                          ),
-                        ],
+                  Container(
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.0),
+                      border: Border.all(
+                        color: Utils.primaryColor,
                       ),
                     ),
-                  )
+                    child: TextButton.icon(
+                      icon: Icon(
+                        Icons.edit_square,
+                        color: Utils.primaryColor,
+                        size: 20,
+                      ),
+                      onPressed: () {},
+                      label: Text(
+                        'Edit Profil Komunitas',
+                        style: Utils.textRegular,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 6.0),
+                  Container(
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(229, 0, 0, 1),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: TextButton.icon(
+                      icon: Icon(
+                        Icons.logout,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        // context.read<EventProvider>().getAll(context.read<UserProvider>().community.id);
+                        context.read<UserProvider>().logout();
+                        context.go('/login');
+                      },
+                      label: Text(
+                        'Keluar',
+                        style: Utils.textStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 6.0),
                 ],
               ),
             ),
@@ -157,6 +124,39 @@ class _BerandaKomunitasState extends State<BerandaKomunitas> {
               indent: 25,
               endIndent: 25,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 12),
+                  // width: double.maxFinite,
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(0, 148, 15, 1),
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: TextButton.icon(
+                    icon: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                    onPressed: () {
+                      context.go('/home-komunitas/create/');
+                    },
+                    label: Text(
+                      'Tambah',
+                      style: Utils.textStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            for (Event event in events)
+              EventCard(
+                event: event,
+              )
           ],
         ),
       ),

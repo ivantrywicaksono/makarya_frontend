@@ -6,16 +6,27 @@ class UserProvider extends ChangeNotifier {
 
   late Artist _artist;
   Artist get artist => _artist;
+  late Community _community;
+  Community get community => _community;
 
   late String _role;
-  String get role => user.role;
+  String? get role => user.role;
 
   UserService _userService = UserService();
   ArtistService _artistService = ArtistService();
+  CommunityService _communityService = CommunityService();
 
-  Future<void> register(User newUser) async {
+  void logout() {
+    _role = '';
+    _artist = Artist(id: 0);
+    _community = Community(id: 0);
+    _user = User(id: 0, name: '', email: '', role: '');
+    notifyListeners();
+  }
+
+  Future<void> register(User newUser, String phone) async {
     try {
-      User userData = await _userService.register(newUser);
+      User userData = await _userService.register(newUser, phone);
       notifyListeners();
     } catch (e) {
       throw Exception(e);
@@ -25,13 +36,20 @@ class UserProvider extends ChangeNotifier {
   Future<void> login(User user) async {
     try {
       User userData = await _userService.login(user);
-      print(userData);
-      Artist artistData = await _artistService.get(userData.id);
-      print(artistData);
       _user = userData;
-      _artist = artistData;
+      print(userData);
+
+      if (userData.role == 'Artist') {
+        Artist artistData = await _artistService.get(userData.id);
+        print(artistData);
+        _artist = artistData;
+        print(_artist.id);
+      } else if (userData.role == 'Community') {
+        Community communityData = await _communityService.get(userData.id);
+        _community = communityData;
+        print(_community.id);
+      }
       print(_user.id);
-      print(_artist.id);
       notifyListeners();
     } catch (e) {
       throw Exception(e);

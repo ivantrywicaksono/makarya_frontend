@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:makarya_frontend/models/models.dart';
 import 'package:makarya_frontend/providers/providers.dart';
-import 'package:makarya_frontend/screens/beranda_komunitas.dart';
 import 'package:makarya_frontend/screens/editprofil.dart';
 import 'package:makarya_frontend/screens/screens.dart';
 
@@ -37,6 +37,8 @@ void main() {
         providers: [
           ChangeNotifierProvider(create: (_) => UserProvider()),
           ChangeNotifierProvider(create: (_) => PublicationProvider()),
+          ChangeNotifierProvider(create: (_) => CommunityProvider()),
+          ChangeNotifierProvider(create: (_) => EventProvider()),
         ],
         child: MyApp(),
       ),
@@ -60,14 +62,12 @@ class MyApp extends StatelessWidget {
     // },
     navigatorKey: _rootNavigatorKey,
     // initialLocation: '/galeri/comments',
-    initialLocation: '/register',
+    initialLocation: '/login',
     debugLogDiagnostics: true,
     routes: <RouteBase>[
       GoRoute(
         path: '/splash',
-        builder: (context, state) => UpdateEventScreen(
-          title: 'Ubah Acara',
-        ),
+        builder: (context, state) => SplashScreen(),
       ),
       GoRoute(
         path: '/register',
@@ -79,21 +79,30 @@ class MyApp extends StatelessWidget {
       ),
       GoRoute(
         path: '/home-komunitas',
-        builder: (context, state) => KomunitasListPage(),
+        builder: (context, state) => BerandaKomunitas(),
         routes: <RouteBase>[
           GoRoute(
             parentNavigatorKey: _rootNavigatorKey,
             path: 'create',
-            builder: (context, state) =>
-                CreateEventScreen(title: 'Tambah Acara'), //Create Screen
-          ),//
+            builder: (context, state) => CreateEventScreen(
+              title: 'Tambah Acara',
+            ), //Create Screen
+          ), //
+          GoRoute(
+            parentNavigatorKey: _rootNavigatorKey,
+            path: 'edit/:id',
+            builder: (context, state) => UpdateEventScreen(
+              title: 'Ubah Acara',
+              event: state.extra as Event,
+            ), //Create Screen
+          ), //
         ],
       ),
-      GoRoute(
-        path: '/home-pemerintah',
-        builder: (context, state) => LihatPengajuan(),
-        routes: [],
-      ),
+      // GoRoute(
+      //   path: '/home-pemerintah',
+      //   builder: (context, state) => LihatPengajuan(),
+      //   routes: [],
+      // ),
       ShellRoute(
         // redirect: (context, state) {
         //   if (context.read<UserProvider>().role != 'Artist') return '/login';
@@ -138,6 +147,7 @@ class MyApp extends StatelessWidget {
                     path: 'edit',
                     builder: (context, state) => UpdatePublikasiScreen(
                       title: 'Ubah Publikasi',
+                      publication: state.extra as Publication,
                     ),
                   ),
                   GoRoute(
@@ -156,23 +166,23 @@ class MyApp extends StatelessWidget {
             builder: (BuildContext context, GoRouterState state) =>
                 KomunitasListPage(),
             routes: <RouteBase>[
-              GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: 'create',
-                builder: (context, state) =>
-                    CreateEventScreen(title: 'Tambah Acara'), //Create Screen
-              ),
+              // GoRoute(
+              //   parentNavigatorKey: _rootNavigatorKey,
+              //   path: 'create',
+              //   builder: (context, state) =>
+              //       CreateEventScreen(title: 'Tambah Acara'), //Create Screen
+              // ),
               GoRoute(
                 path: ':komunitasId',
                 builder: (context, state) => DetailKomunitas(), //Read Screen
-                routes: [
-                  GoRoute(
-                    parentNavigatorKey: _rootNavigatorKey,
-                    path: 'edit',
-                    builder: (context, state) =>
-                        UpdateEventScreen(title: 'Ubah Event'), //Update Screen
-                  ),
-                ],
+                // routes: [
+                //   GoRoute(
+                //     parentNavigatorKey: _rootNavigatorKey,
+                //     path: 'edit',
+                //     builder: (context, state) =>
+                //         UpdateEventScreen(title: 'Ubah Event'), //Update Screen
+                //   ),
+                // ],
               ),
             ],
           ),
@@ -259,10 +269,10 @@ class _HomeState extends State<Home> {
             icon: Icon(CupertinoIcons.person_2_fill),
             label: 'Komunitas',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.doc_text_fill),
-            label: 'Pengajuan',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(CupertinoIcons.doc_text_fill),
+          //   label: 'Pengajuan',
+          // ),
         ],
         // currentIndex: _calculateSelectedIndex(context),
         currentIndex: _selectedIndex,
@@ -283,9 +293,9 @@ class _HomeState extends State<Home> {
     if (location.startsWith('/komunitas')) {
       return 2;
     }
-    if (location.startsWith('/pengajuan')) {
-      return 3;
-    }
+    // if (location.startsWith('/pengajuan')) {
+    //   return 3;
+    // }
     return 0;
   }
 
@@ -299,8 +309,8 @@ class _HomeState extends State<Home> {
           GoRouter.of(context).go('/galeri');
         case 2:
           GoRouter.of(context).go('/komunitas');
-        case 3:
-          GoRouter.of(context).go('/pengajuan');
+        // case 3:
+        //   GoRouter.of(context).go('/pengajuan');
       }
     });
   }

@@ -3,8 +3,10 @@ part of screens;
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _emailController =
+      TextEditingController(text: 'community@example.com');
+  TextEditingController _passwordController =
+      TextEditingController(text: 'password');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,8 +73,8 @@ class LoginScreen extends StatelessWidget {
                     if (role == 'Artist')
                       context.go('/');
                     else if (role == 'Community')
-                      context.go('/komunitas');
-                    else if (role == 'Goverment') context.go('/pengajuan');
+                      context.go('/home-komunitas');
+                    // else if (role == 'Goverment') context.go('/pengajuan');
                   }).catchError((error) {
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text("Login gagal: $error")));

@@ -11,8 +11,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   // Text editing controllers for each profile field
   final TextEditingController _namaController = TextEditingController();
   final TextEditingController _deskripsiController = TextEditingController();
-  final TextEditingController _tanggalLahirController = TextEditingController();
-  final TextEditingController _jenisKelaminController = TextEditingController();
   final TextEditingController _noTeleponController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
@@ -22,8 +20,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   void dispose() {
     _namaController.dispose();
     _deskripsiController.dispose();
-    _tanggalLahirController.dispose();
-    _jenisKelaminController.dispose();
     _noTeleponController.dispose();
     _emailController.dispose();
     super.dispose();
@@ -65,16 +61,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               LabelInput(
                 label: 'Deskripsi',
                 controller: _deskripsiController,
-                type: TextInputType.text,
-              ),
-              LabelInput(
-                label: 'Tanggal Lahir',
-                controller: _tanggalLahirController,
-                type: TextInputType.datetime,
-              ),
-              LabelInput(
-                label: 'Jenis Kelamin',
-                controller: _jenisKelaminController,
                 type: TextInputType.text,
               ),
               LabelInput(

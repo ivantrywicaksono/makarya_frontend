@@ -47,13 +47,13 @@ class _PengajuanPageState extends State<PengajuanPage> {
                         ),
                       ),
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
+                        backgroundColor: WidgetStateProperty.all<Color>(
                             Colors.white), // ubah warna tombol menjadi putih
-                        foregroundColor: MaterialStateProperty.all<Color>(
+                        foregroundColor: WidgetStateProperty.all<Color>(
                             Colors.brown), // ubah warna teks menjadi coklat
-                        padding: MaterialStateProperty.all<EdgeInsets>(
+                        padding: WidgetStateProperty.all<EdgeInsets>(
                             EdgeInsets.symmetric(vertical: 20.0)),
-                        side: MaterialStateProperty.all<BorderSide>(BorderSide(
+                        side: WidgetStateProperty.all<BorderSide>(BorderSide(
                             color: Utils.getPrimaryColor(
                                 context))), // tambahkan garis tepi coklat
                       ),
@@ -69,13 +69,13 @@ class _PengajuanPageState extends State<PengajuanPage> {
                         ),
                       ),
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
+                        backgroundColor: WidgetStateProperty.all<Color>(
                             Colors.white), // ubah warna tombol menjadi putih
-                        foregroundColor: MaterialStateProperty.all<Color>(
+                        foregroundColor: WidgetStateProperty.all<Color>(
                             Colors.brown), // ubah warna teks menjadi coklat
-                        padding: MaterialStateProperty.all<EdgeInsets>(
+                        padding: WidgetStateProperty.all<EdgeInsets>(
                             EdgeInsets.symmetric(vertical: 20.0)),
-                        side: MaterialStateProperty.all<BorderSide>(BorderSide(
+                        side: WidgetStateProperty.all<BorderSide>(BorderSide(
                             color:
                                 Colors.brown)), // tambahkan garis tepi coklat
                       ),

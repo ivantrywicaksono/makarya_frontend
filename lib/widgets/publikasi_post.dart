@@ -2,10 +2,12 @@ part of widgets;
 
 class PublikasiPost extends StatefulWidget {
   final Publication publication;
+  void Function() onDeleteTap;
 
   PublikasiPost({
     super.key,
     required this.publication,
+    required this.onDeleteTap
   });
 
   @override
@@ -14,6 +16,7 @@ class PublikasiPost extends StatefulWidget {
 
 class _PublikasiPostState extends State<PublikasiPost> {
   bool _isLiked = false;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +24,14 @@ class _PublikasiPostState extends State<PublikasiPost> {
       children: [
         Divider(),
         PublikasiHead(
-            publication: widget.publication,
-            ),
+          publication: widget.publication,
+          onDeleteTap: widget.onDeleteTap,
+        ),
         CachedNetworkImage(
           imageUrl: '${Utils.baseUrl}storage/${widget.publication.image}',
         ),
         PublikasiTail(
+          publication_id: widget.publication.id,
           nLikes: widget.publication.likes,
           nComments: widget.publication.comments?.length ?? 0,
           likeOnPressed: _toggleLike,

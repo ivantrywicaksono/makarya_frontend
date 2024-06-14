@@ -3,6 +3,7 @@ library screens;
 import 'dart:async';
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -34,3 +35,4 @@ part 'detail_komunitas.dart';
 part 'lihatpengajuan.dart';
 part 'create_event_screen.dart';
 part 'update_event_screen.dart';
+part 'beranda_komunitas.dart';

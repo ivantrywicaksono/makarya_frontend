@@ -118,13 +118,13 @@ class _UbahPengajuanHakiPageState extends State<UbahPengajuanHakiPage> {
                       ),
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
+                            WidgetStateProperty.all<Color>(Colors.white),
                         foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.brown),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            WidgetStateProperty.all<Color>(Colors.brown),
+                        padding: WidgetStateProperty.all<EdgeInsets>(
                             EdgeInsets.symmetric(
                                 vertical: 12.0, horizontal: 16.0)),
-                        side: MaterialStateProperty.all<BorderSide>(
+                        side: WidgetStateProperty.all<BorderSide>(
                             BorderSide(color: Colors.brown)),
                       ),
                     ),
@@ -143,13 +143,13 @@ class _UbahPengajuanHakiPageState extends State<UbahPengajuanHakiPage> {
                       ),
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
+                            WidgetStateProperty.all<Color>(Colors.white),
                         foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.brown),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            WidgetStateProperty.all<Color>(Colors.brown),
+                        padding: WidgetStateProperty.all<EdgeInsets>(
                             EdgeInsets.symmetric(
                                 vertical: 12.0, horizontal: 16.0)),
-                        side: MaterialStateProperty.all<BorderSide>(
+                        side: WidgetStateProperty.all<BorderSide>(
                             BorderSide(color: Colors.brown)),
                       ),
                     ),
@@ -175,8 +175,8 @@ class _UbahPengajuanHakiPageState extends State<UbahPengajuanHakiPage> {
                         ),
                         style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.brown),
-                          padding: MaterialStateProperty.all<EdgeInsets>(
+                              WidgetStateProperty.all<Color>(Colors.brown),
+                          padding: WidgetStateProperty.all<EdgeInsets>(
                               EdgeInsets.symmetric(vertical: 12.0)),
                         ),
                       ),
@@ -203,8 +203,8 @@ class _UbahPengajuanHakiPageState extends State<UbahPengajuanHakiPage> {
                         ),
                         style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all<Color>(Colors.brown),
-                          padding: MaterialStateProperty.all<EdgeInsets>(
+                              WidgetStateProperty.all<Color>(Colors.brown),
+                          padding: WidgetStateProperty.all<EdgeInsets>(
                               EdgeInsets.symmetric(vertical: 12.0)),
                         ),
                       ),

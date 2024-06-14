@@ -1,7 +1,11 @@
 part of widgets;
 
 class EventCard extends StatefulWidget {
-  const EventCard({super.key});
+  Event event;
+  EventCard({
+    super.key,
+    required this.event,
+  });
 
   @override
   EventCardState createState() => EventCardState();
@@ -36,7 +40,9 @@ class EventCardState extends State<EventCard> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage('assets/images/event.png'),
+                  image: CachedNetworkImageProvider(
+                    '${Utils.baseUrl}storage/${widget.event.image}',
+                  ),
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(10.0)),
               ),
@@ -45,7 +51,7 @@ class EventCardState extends State<EventCard> {
               height: 10,
             ),
             Text(
-              "Pameran Batik",
+              widget.event.name,
               style: GoogleFonts.poppins(
                   textStyle:
                       TextStyle(fontSize: 20, fontWeight: FontWeight.w500)),
@@ -57,7 +63,7 @@ class EventCardState extends State<EventCard> {
                 ),
                 SizedBox(width: 6),
                 Text(
-                  "Bank Indonesia Jember",
+                  widget.event.location,
                   style: GoogleFonts.poppins(),
                 ),
               ],
@@ -67,7 +73,9 @@ class EventCardState extends State<EventCard> {
                 Icon(Icons.calendar_today_outlined),
                 SizedBox(width: 6),
                 Text(
-                  "07 Mei 2024 09:00 WIB",
+                  DateFormat('d MMMM yyyy HH:mm', 'id_ID')
+                      .format(widget.event.getDateTime())
+                      .toString(),
                   style: GoogleFonts.poppins(),
                 ),
               ],
@@ -76,11 +84,74 @@ class EventCardState extends State<EventCard> {
               children: [
                 Icon(Icons.payments_outlined),
                 SizedBox(width: 6),
-                Text("Gratis"),
+                Text(widget.event.price > 0
+                    ? NumberFormat.currency(
+                        locale: 'id_ID',
+                        symbol: 'Rp',
+                        decimalDigits: 0,
+                      ).format(widget.event.price)
+                    : "Gratis"),
               ],
             ),
             SizedBox(height: 10.0),
             // RemindMeButton(onPressed: _toggleReminder, isReminded: _isReminded),
+            if(widget.event.community_id == context.read<UserProvider>().community.id) 
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    // width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(229, 0, 0, 1),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: TextButton.icon(
+                      icon: Icon(
+                        Icons.delete_forever,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        context.read<EventProvider>().delete(widget.event.id);
+                      },
+                      label: Text(
+                        'Hapus',
+                        style: Utils.textStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(width: 12),
+                Expanded(
+                  child: Container(
+                    // width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(22, 79, 225, 1),
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: TextButton.icon(
+                      icon: Icon(
+                        Icons.edit_square,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        context.go('/home-komunitas/edit/${widget.event.id}',
+                            extra: widget.event);
+                      },
+                      label: Text(
+                        'Ubah',
+                        style: Utils.textStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),

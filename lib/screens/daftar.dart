@@ -35,7 +35,7 @@ class _DaftarPageState extends State<DaftarPage> {
       role: _tipeAkunValue,
     );
 
-    context.read<UserProvider>().register(newUser).then(
+    context.read<UserProvider>().register(newUser, _nomorTeleponController.text).then(
       (_) {
         ScaffoldMessenger.of(context)
             .showSnackBar(SnackBar(content: Text("Registrasi berhasil")));

@@ -118,12 +118,12 @@ class _UbahStatusPengajuanPageState extends State<UbahStatusPengajuanPage> {
                       ),
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
+                            WidgetStateProperty.all<Color>(Colors.white),
                         foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.brown),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            WidgetStateProperty.all<Color>(Colors.brown),
+                        padding: WidgetStateProperty.all<EdgeInsets>(
                             EdgeInsets.symmetric(vertical: 20.0)),
-                        side: MaterialStateProperty.all<BorderSide>(
+                        side: WidgetStateProperty.all<BorderSide>(
                             BorderSide(color: Colors.brown)),
                       ),
                     ),
@@ -142,12 +142,12 @@ class _UbahStatusPengajuanPageState extends State<UbahStatusPengajuanPage> {
                       ),
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.white),
+                            WidgetStateProperty.all<Color>(Colors.white),
                         foregroundColor:
-                            MaterialStateProperty.all<Color>(Colors.brown),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            WidgetStateProperty.all<Color>(Colors.brown),
+                        padding: WidgetStateProperty.all<EdgeInsets>(
                             EdgeInsets.symmetric(vertical: 20.0)),
-                        side: MaterialStateProperty.all<BorderSide>(
+                        side: WidgetStateProperty.all<BorderSide>(
                             BorderSide(color: Colors.brown)),
                       ),
                     ),
@@ -181,8 +181,8 @@ class _UbahStatusPengajuanPageState extends State<UbahStatusPengajuanPage> {
                     ),
                     style: ButtonStyle(
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.brown),
-                      padding: MaterialStateProperty.all<EdgeInsets>(
+                          WidgetStateProperty.all<Color>(Colors.brown),
+                      padding: WidgetStateProperty.all<EdgeInsets>(
                           EdgeInsets.symmetric(
                               vertical: 12.0, horizontal: 24.0)),
                     ),

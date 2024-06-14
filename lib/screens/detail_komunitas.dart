@@ -9,6 +9,13 @@ class DetailKomunitas extends StatefulWidget {
 }
 
 class _DetailKomunitasState extends State<DetailKomunitas> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Community c = GoRouterState.of(context).extra as Community;
+  //   context.read<EventProvider>().getAll(c.id);
+  // }
+
   void _launchURL(String url) async {
     Uri uri = Uri.parse(url);
     if (!await launchUrl(uri)) {
@@ -18,6 +25,10 @@ class _DetailKomunitasState extends State<DetailKomunitas> {
 
   @override
   Widget build(BuildContext context) {
+    Community community = GoRouterState.of(context).extra as Community;
+    context.read<EventProvider>().getAll(community.id);
+    List<Event> events = context.read<EventProvider>().events;
+
     return Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -37,14 +48,16 @@ class _DetailKomunitasState extends State<DetailKomunitas> {
                 padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
                 child: Column(
                   children: [
-                    const Row(
+                    Row(
                       children: [
                         CircleAvatar(
                           radius: 32,
-                          backgroundImage: AssetImage('assets/images/e1.png'),
+                          backgroundImage: CachedNetworkImageProvider(
+                            '${Utils.baseUrl}storage/${community.image}',
+                          ),
                         ),
                         SizedBox(width: 16),
-                        Text('Canting Creative',
+                        Text(community.name,
                             style: TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w400,
@@ -54,9 +67,9 @@ class _DetailKomunitasState extends State<DetailKomunitas> {
                     const SizedBox(height: 5),
                     ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
+                        backgroundColor: WidgetStateProperty.all(
                             const Color.fromRGBO(1, 117, 97, 1)),
-                        shape: MaterialStateProperty.all(
+                        shape: WidgetStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),
@@ -64,7 +77,7 @@ class _DetailKomunitasState extends State<DetailKomunitas> {
                       ),
                       onPressed: () {
                         // context.go('/komunitas/1/edit');
-                        _launchURL('https://google.com');
+                        _launchURL(community.group_link);
                       },
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
@@ -82,8 +95,8 @@ class _DetailKomunitasState extends State<DetailKomunitas> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    const Text(
-                      'Kami adalah sebuah komunitas yang bersemangat dalam menghidupkan kembali keindahan tradisi batik melalui sentuhan kreatif kontemporer. Dengan jalinan antara seniman, desainer, dan pecinta batik dari berbagai latar belakang, kami tidak hanya mengenang warisan budaya, tetapi juga merayakan inovasi dalam seni tekstil. Bersama-sama, kami menjelajahi teknik-tradisional dan eksperimen daring untuk menciptakan karya-karya unik yang mencerahkan cerita-cerita baru dalam setiap helai kain.',
+                    Text(
+                      community.description,
                       style: TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.normal,
@@ -110,7 +123,8 @@ class _DetailKomunitasState extends State<DetailKomunitas> {
                         ),
                       ),
                     ),
-                    EventCard(),
+                    for (Event event in events)
+                      EventCard(event: event)
                   ],
                 ),
               ),

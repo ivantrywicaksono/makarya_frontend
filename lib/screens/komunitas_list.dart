@@ -1,31 +1,24 @@
 part of screens;
 
-class KomunitasListPage extends StatelessWidget {
+class KomunitasListPage extends StatefulWidget {
   KomunitasListPage({super.key});
 
-  final List<Komunitas> _komunitas = [
-    Komunitas(
-      nama: 'Canting Creative',
-      deskripsi:
-          'Kami adalah sebuah komunitas yang bersemangat dalam menghidupkan kembali keindahan tradisi batik melalui sentuhan kreatif kontemporer. Dengan jalinan antara seniman, des...',
-      foto: "assets/images/e1.png",
-    ),
-    Komunitas(
-      nama: 'Batik Nusantara',
-      deskripsi:
-          'Kami adalah pangkalan kreatif yang menghidupkan kembali keajaiban dan keindahan warisan budaya Indonesia melalui seni batik. Di sini, kami menyatukan para seniman, desainer, dan pe',
-      foto: "assets/images/e2.png",
-    ),
-    Komunitas(
-      nama: 'Kompahat',
-      deskripsi:
-          'Kami adalah wadah bagi para seniman pahat dari berbagai latar belakang dan gaya untuk bersatu dalam penciptaan, eksplorasi, dan apresiasi seni pahat.',
-      foto: "assets/images/e3.png",
-    ),
-  ];
+  @override
+  State<KomunitasListPage> createState() => _KomunitasListPageState();
+}
+
+class _KomunitasListPageState extends State<KomunitasListPage> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<CommunityProvider>().getAll();
+  }
 
   @override
   Widget build(BuildContext context) {
+    List<Community> communities =
+        context.watch<CommunityProvider>().communities;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -39,12 +32,10 @@ class KomunitasListPage extends StatelessWidget {
         backgroundColor: const Color.fromRGBO(58, 24, 5, 1),
       ),
       body: ListView.builder(
-        itemCount: _komunitas.length,
+        itemCount: communities.length,
         itemBuilder: (context, index) {
-          return Column(
-            children: [
-              KomunitasCard(komunitas: _komunitas[index]),
-            ],
+          return KomunitasCard(
+            community: communities[index],
           );
         },
       ),
@@ -55,10 +46,10 @@ class KomunitasListPage extends StatelessWidget {
 class KomunitasCard extends StatefulWidget {
   const KomunitasCard({
     super.key,
-    required this.komunitas,
+    required this.community,
   });
 
-  final Komunitas komunitas;
+  final Community community;
 
   @override
   State<KomunitasCard> createState() => _KomunitasCardState();
@@ -95,12 +86,14 @@ class _KomunitasCardState extends State<KomunitasCard> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CircleAvatar(
-                  backgroundImage: AssetImage(widget.komunitas.foto),
+                  backgroundImage: CachedNetworkImageProvider(
+                    '${Utils.baseUrl}storage/${widget.community.image}',
+                  ),
                 ),
                 const SizedBox(width: 16.0),
                 Expanded(
                   child: Text(
-                    widget.komunitas.nama,
+                    widget.community.name,
                     style: Utils.textStyle(
                       size: 20,
                       weight: FontWeight.w500,
@@ -109,8 +102,9 @@ class _KomunitasCardState extends State<KomunitasCard> {
                 ),
               ],
             ),
+            const SizedBox(height: 16.0),
             Text(
-              widget.komunitas.deskripsi,
+              widget.community.description,
               style: Utils.textStyle(size: 15.0),
               textAlign: TextAlign.justify,
             ),
@@ -118,20 +112,22 @@ class _KomunitasCardState extends State<KomunitasCard> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FollowMeButton(
-                  onPressed: _toggleFollower,
-                  isFollowed: _isFollowed,
-                ),
-                const SizedBox(width: 10.0),
+                // FollowMeButton(
+                //   onPressed: _toggleFollower,
+                //   isFollowed: _isFollowed,
+                // ),
+                // const SizedBox(width: 10.0),
                 Expanded(
                   child: InkWell(
-                    overlayColor: MaterialStatePropertyAll(Utils.primaryColor),
+                    overlayColor: WidgetStatePropertyAll(Utils.primaryColor),
                     borderRadius: BorderRadius.circular(12),
                     child: TextButton.icon(
                       style: TextButton.styleFrom(
                         backgroundColor: Utils.primaryColor,
                       ),
-                      onPressed: () => context.go('/komunitas/1'),
+                      onPressed: () => context.go(
+                          '/komunitas/${widget.community.id}',
+                          extra: widget.community),
                       icon: Icon(
                         Icons.logout,
                         size: 14,

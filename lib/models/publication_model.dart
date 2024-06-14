@@ -24,13 +24,13 @@ class Publication {
   factory Publication.fromJson(Map<String, dynamic> json) {
     print(json);
     return Publication(
-      id: json['id'] as int,
+      id: json['id'],
       description: json['description'] as String,
       image: json['image'] as String,
       created_at: DateTime.parse(json['created_at'] as String),
-      artist_id: json['artist_id'] as int,
+      artist_id: json['artist_id'],
       artist: Artist.fromJson(json['artist']),
-      likes: json['likes_count'] as int ?? 0,
+      likes: json['likes_count'] ?? 0,
       comments: (json['comments'] as List<dynamic>?)
           ?.map((item) => Comment.fromJson(item))
           .toList() ?? [],

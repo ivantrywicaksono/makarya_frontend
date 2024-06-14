@@ -12,10 +12,14 @@ class CreateEventScreen extends StatefulWidget {
 class _CreateEventScreenState extends State<CreateEventScreen> {
   File? _image;
   ImagePicker picker = ImagePicker();
-  TextEditingController _lokasiController = TextEditingController();
-  TextEditingController _tanggalController = TextEditingController();
-  TextEditingController _waktuController = TextEditingController();
-  TextEditingController _hargaController = TextEditingController();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _locationController = TextEditingController();
+  TextEditingController _dateController = TextEditingController();
+  TextEditingController _timeController = TextEditingController();
+  TextEditingController _priceController = TextEditingController();
+
+  late DateTime _date;
+  late TimeOfDay _time;
 
   Future getImageFromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
@@ -25,6 +29,26 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         _image = File(pickedFile.path);
       }
     });
+  }
+
+  void _simpanOnTap() {
+    String path;
+    if (_image == null) {
+      path = '';
+    } else {
+      path = _image?.path ?? '';
+    }
+    Event newEvent = Event(
+      id: 0,
+      community_id: context.read<UserProvider>().community.id,
+      name: _nameController.text,
+      location: _locationController.text,
+      image: '',
+      date: _date,
+      time: _time,
+      price: int.parse(_priceController.text),
+    );
+    context.read<EventProvider>().create(newEvent, path);
   }
 
   @override
@@ -40,40 +64,47 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.only(top: 23, bottom: 23, left: 15, right: 15),
+              padding: EdgeInsets.all(12),
               decoration: BoxDecoration(
                 border: Border.all(color: Color.fromRGBO(58, 24, 5, 1)),
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(20),
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: _image != null
                     ? Image.file(_image!)
                     : Padding(
-                      padding: const EdgeInsets.all(32),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Ukuran File tidak melebihi 2 MB',
-                            style: TextStyle(fontSize: 12.0, fontFamily: 'poppins'),
-                          ),
-                          SizedBox(height: 8.0),
-                          Text(
-                            'Gambar berformat .jpeg, .jpg atau .png',
-                            style: TextStyle(fontSize: 12.0, fontFamily: 'poppins'),
-                          ),
-                        ],
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 48,
+                          vertical: 64,
+                        ),
+                        child:
+                            // Column(
+                            // children: [
+                            // Text(
+                            //   'Ukuran File tidak melebihi 2 MB',
+                            //   style: TextStyle(
+                            //       fontSize: 12.0, fontFamily: 'poppins'),
+                            // ),
+                            // SizedBox(height: 8.0),
+                            Text(
+                          'Gambar berformat .jpeg, .jpg atau .png',
+                          style:
+                              TextStyle(fontSize: 12.0, fontFamily: 'poppins'),
+                        ),
+                        // ],
+                        // ),
                       ),
-                    ),
               ),
             ),
             SizedBox(height: 12),
             TextButton.icon(
               style: ButtonStyle(
-                padding: MaterialStatePropertyAll(
+                padding: WidgetStatePropertyAll(
                     EdgeInsets.symmetric(vertical: 20, horizontal: 90)),
-                side: MaterialStatePropertyAll(BorderSide(color: primary, width: 2)),
-                shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                side: WidgetStatePropertyAll(
+                    BorderSide(color: primary, width: 2)),
+                shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12))),
               ),
               onPressed: () => getImageFromGallery(),
@@ -85,7 +116,13 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             ),
             SizedBox(height: 22),
             LabelInput(
-              controller: _lokasiController,
+              controller: _nameController,
+              type: TextInputType.text,
+              label: 'Nama',
+              placeholder: 'e.g. Pameran Batik',
+            ),
+            LabelInput(
+              controller: _locationController,
               type: TextInputType.text,
               label: 'Lokasi',
               placeholder: 'e.g. Alun-Alun Jember',
@@ -94,45 +131,75 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               children: [
                 Expanded(
                   child: LabelInput(
-                    controller: _tanggalController,
+                    controller: _dateController,
                     type: TextInputType.text,
                     label: 'Tanggal',
                     placeholder: '28 April 2024',
                     readOnly: true,
                     onTap: () async {
-                      final DateTime? pickedDate = await showCupertinoModalPopup(
+                      final DateTime? pickedDate =
+                          await showCupertinoModalPopup(
                         context: context,
-                        builder: (context) => Container(color: Colors.white,
+                        builder: (context) => Container(
+                          color: Colors.white,
                           height: 216,
                           child: CupertinoDatePicker(
                             mode: CupertinoDatePickerMode.date,
                             initialDateTime: DateTime.now(),
                             onDateTimeChanged: (dateTime) {
-                            _tanggalController.text = DateFormat('dd MMMM yyyy', 'id_ID').format(dateTime);
-                          },
+                              _dateController.text =
+                                  DateFormat('dd MMMM yyyy', 'id_ID')
+                                      .format(dateTime);
+                              print(_dateController.text);
+                              setState(() {
+                                _date = dateTime;
+                              });
+                              print('date' + _date.toString());
+                            },
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                ),),
+                      );
+                    },
+                  ),
+                ),
                 SizedBox(width: 16),
                 Expanded(
                   child: LabelInput(
-                      controller: _waktuController,
-                      type: TextInputType.text,
-                      label: 'Waktu',
-                      placeholder: '09.00',
-                      readOnly: true,
-                      onTap: () async {
-                        final TimeOfDay? pickedTime = await showCupertinoModalPopup(
-                          context: context,
-                          builder: (context) => Container(color: Colors.white,
-                            height: 216,
-                            child: CupertinoTimerPicker(
-                              mode: CupertinoTimerPickerMode.hm,
-                              initialTimerDuration: Duration(hours: 9),
-                              onTimerDurationChanged: (timerDuration) {
-                              _waktuController.text = timerDuration.toString().split('.').first.padLeft(5, '0');
+                    controller: _timeController,
+                    type: TextInputType.text,
+                    label: 'Waktu',
+                    placeholder: '09.00',
+                    readOnly: true,
+                    onTap: () async {
+                      if (_date == null) return;
+                      final TimeOfDay? pickedTime =
+                          await showCupertinoModalPopup(
+                        context: context,
+                        builder: (context) => Container(
+                          color: Colors.white,
+                          height: 216,
+                          child: CupertinoTimerPicker(
+                            mode: CupertinoTimerPickerMode.hm,
+                            initialTimerDuration: Duration(
+                              hours: _date.hour,
+                              minutes: _date.minute,
+                            ),
+                            onTimerDurationChanged: (timerDuration) {
+                              _timeController.text = Duration(
+                                hours: DateTime.now().hour,
+                                minutes: DateTime.now().minute,
+                              ).toString().split('.').first;
+                              print(_timeController.text);
+
+                              setState(() {
+                                int totalMinutes = timerDuration.inMinutes;
+                                int hours = totalMinutes ~/ 60;
+                                int minutes = totalMinutes % 60;
+                                _time = TimeOfDay(hour: hours, minute: minutes);
+                              });
+
+                              _timeController.text =
+                                  timerDuration.toString().split('.').first;
                             },
                           ),
                         ),
@@ -143,7 +210,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               ],
             ),
             LabelInput(
-              controller: _hargaController,
+              controller: _priceController,
               type: TextInputType.text,
               label: 'Harga',
               placeholder: 'e.g. 10.000',
@@ -152,7 +219,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             Container(
               width: MediaQuery.of(context).size.width,
               child: TextButton(
-                onPressed: () {},
+                onPressed: _simpanOnTap,
                 child: Text(
                   'Simpan',
                   style: GoogleFonts.poppins(
@@ -162,11 +229,11 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                           fontWeight: FontWeight.w600)),
                 ),
                 style: ButtonStyle(
-                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                    shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20))),
-                    padding: MaterialStatePropertyAll(
+                    padding: WidgetStatePropertyAll(
                         EdgeInsets.symmetric(vertical: 20)),
-                    backgroundColor: MaterialStatePropertyAll(primary)),
+                    backgroundColor: WidgetStatePropertyAll(primary)),
               ),
             )
           ],

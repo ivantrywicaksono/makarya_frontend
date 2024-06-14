@@ -1,5 +1,7 @@
 library models;
 
+import 'package:flutter/material.dart';
+
 part 'event_model.dart';
 part 'publication_model.dart';
 part 'komunitas.dart';

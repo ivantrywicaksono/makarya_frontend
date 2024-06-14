@@ -26,7 +26,8 @@ class _GantiPasswordPageState extends State<GantiPasswordPage> {
           ),
         ),
         centerTitle: true, // Centering the title
-        iconTheme: IconThemeData(color: Colors.white), // Set the back button icon color to white
+        iconTheme: IconThemeData(
+            color: Colors.white), // Set the back button icon color to white
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -110,7 +111,8 @@ class _GantiPasswordPageState extends State<GantiPasswordPage> {
                   style: TextStyle(fontFamily: 'Poppins'),
                 ),
                 const SizedBox(height: 32.0),
-                Center( // Memposisikan tombol di tengah
+                Center(
+                  // Memposisikan tombol di tengah
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -118,9 +120,12 @@ class _GantiPasswordPageState extends State<GantiPasswordPage> {
                         // ...
                       }
                     },
-                    style: ButtonStyle( // Style the button directly
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.brown), // Set background color to brown
-                      foregroundColor: MaterialStateProperty.all<Color>(Colors.white), // Set text color to white
+                    style: ButtonStyle(
+                      // Style the button directly
+                      backgroundColor: WidgetStateProperty.all<Color>(
+                          Colors.brown), // Set background color to brown
+                      foregroundColor: WidgetStateProperty.all<Color>(
+                          Colors.white), // Set text color to white
                     ),
                     child: const Text(
                       'Simpan',

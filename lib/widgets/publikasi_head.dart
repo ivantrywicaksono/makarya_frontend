@@ -1,11 +1,10 @@
 part of widgets;
 
 class PublikasiHead extends StatelessWidget {
-  const PublikasiHead({
-    super.key,
-    required this.publication,
-  });
   final Publication publication;
+  void Function() onDeleteTap;
+
+  PublikasiHead({super.key, required this.publication, required this.onDeleteTap});
 
   @override
   Widget build(BuildContext context) {
@@ -47,25 +46,33 @@ class PublikasiHead extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  CupertinoIcons.delete_solid,
-                                  size: 48,
-                                ),
-                                Text(
-                                  'Hapus',
-                                  style: GoogleFonts.poppins(
-                                      textStyle: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 24,
-                                          decoration: TextDecoration.none)),
-                                ),
-                              ],
+                            GestureDetector(
+                              onTap: () {
+                                onDeleteTap();
+                                context.pop();
+                              },
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    CupertinoIcons.delete_solid,
+                                    size: 48,
+                                  ),
+                                  Text(
+                                    'Hapus',
+                                    style: GoogleFonts.poppins(
+                                        textStyle: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 24,
+                                            decoration: TextDecoration.none)),
+                                  ),
+                                ],
+                              ),
                             ),
                             GestureDetector(
-                              onTap: () => context.go('/galeri/1/edit'),
+                              onTap: () => context.go(
+                                  '/galeri/${publication.id}/edit',
+                                  extra: publication),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [

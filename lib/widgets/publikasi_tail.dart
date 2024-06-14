@@ -7,9 +7,12 @@ class PublikasiTail extends StatelessWidget {
 
   final String description;
   final DateTime date;
+  
+  final int publication_id;
 
   const PublikasiTail({
     super.key,
+    required this.publication_id,
     required this.nLikes,
     required this.nComments,
     required this.likeOnPressed,
@@ -57,7 +60,7 @@ class PublikasiTail extends StatelessWidget {
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
                     icon: Icon(CupertinoIcons.bubble_left),
-                    onPressed: () => context.go('/galeri/1/comments'),
+                    onPressed: () => context.go('/galeri/$publication_id/comments'),
                   ),
                   Text(nComments.toString())
                 ],

@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:makarya_frontend/providers/providers.dart';
 import 'package:makarya_frontend/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 import '../models/models.dart';
 
