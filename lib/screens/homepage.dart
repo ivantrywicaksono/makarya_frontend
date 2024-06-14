@@ -36,7 +36,8 @@ class _HomePageState extends State<HomePage> {
               paragraph: "Acara teraktual dari komunitas",
             ),
             EventCard(event: context.watch<EventProvider>().event,),
-            Divider(height: 24),
+            SizedBox(height: 18),
+            Divider(),
             Heading(
               heading: "Galeri Terpopuler",
               paragraph: "Kumpulan publikasi yang sedang populer",

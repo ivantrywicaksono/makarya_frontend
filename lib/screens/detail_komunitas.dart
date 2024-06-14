@@ -9,13 +9,6 @@ class DetailKomunitas extends StatefulWidget {
 }
 
 class _DetailKomunitasState extends State<DetailKomunitas> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Community c = GoRouterState.of(context).extra as Community;
-  //   context.read<EventProvider>().getAll(c.id);
-  // }
-
   void _launchURL(String url) async {
     Uri uri = Uri.parse(url);
     if (!await launchUrl(uri)) {
