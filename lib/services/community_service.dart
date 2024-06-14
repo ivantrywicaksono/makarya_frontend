@@ -11,7 +11,6 @@ class CommunityService {
       final parsed =
           (jsonDecode(response.body) as List).cast<Map<String, dynamic>>();
 
-      print(parsed);
       List<Community> communitiesData = parsed
           .map<Community>((json) => Community.fromJson(json))
           .toList();
@@ -34,7 +33,6 @@ class CommunityService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
-      print(data);
 
       Community community = Community.fromJson(data);
       return community;
@@ -54,7 +52,6 @@ class CommunityService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
-      print(data);
 
       Community community = Community.fromJson(data);
       return community;

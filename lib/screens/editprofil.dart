@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:makarya_frontend/widgets/widgets.dart';
+part of screens;
 
 class EditProfilePage extends StatefulWidget {
   @override
@@ -26,12 +24,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Handle form submission (update profile information)
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Profil diperbarui')),
-      );
-    }
   }
 
   @override

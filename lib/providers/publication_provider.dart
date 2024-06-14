@@ -33,9 +33,9 @@ class PublicationProvider extends ChangeNotifier {
     }
   }
 
-  Future<List<Publication>> getAll() async {
+  Future<List<Publication>> getAll([int id = 0]) async {
     try {
-      List<Publication> publicationsData = await _publicationService.getAll();
+      List<Publication> publicationsData = await _publicationService.getAll(id);
       _publications = publicationsData;
       notifyListeners();
       return publicationsData;

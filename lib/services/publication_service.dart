@@ -9,7 +9,6 @@ class PublicationService {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body) as Map<String, dynamic>;
-      print('data $data');
       Publication popular = Publication.fromJson(data);
       return popular;
     } else {
@@ -24,7 +23,6 @@ class PublicationService {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body) as Map<String, dynamic>;
-      print('data $data');
       Publication publication = Publication.fromJson(data);
       return publication;
     } else {
@@ -39,7 +37,6 @@ class PublicationService {
     );
 
     if (response.statusCode == 200) {
-      print('delete pub success');
     } else {
       throw Exception(response.body);
     }
@@ -52,7 +49,6 @@ class PublicationService {
     );
 
     if (response.statusCode == 200) {
-      print('update pub success');
     } else {
       throw Exception(response.body);
     }
@@ -69,10 +65,8 @@ class PublicationService {
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body) as Map<String, dynamic>;
 
-      print(data);
 
       Publication publicationData = Publication.fromJson(data);
-      print(publicationData);
 
       // return publicationData;
     } else {
@@ -82,9 +76,10 @@ class PublicationService {
     }
   }
 
-  Future<List<Publication>> getAll() async {
+  Future<List<Publication>> getAll([int id = 0]) async {
+    String endPoint = id > 0 ? '/publication/artist/$id' : '/publication';
     final response = await http.get(
-      Utils.getApiUri('/publication'),
+      Utils.getApiUri(endPoint),
       headers: Utils.requestHeaders(),
     );
 
@@ -92,12 +87,10 @@ class PublicationService {
       final parsed =
           (jsonDecode(response.body) as List).cast<Map<String, dynamic>>();
 
-      print(parsed);
       List<Publication> publicationsData = parsed
           .map<Publication>((json) => Publication.fromJson(json))
           .toList();
 
-      // print(publicationsData[0].likes?.length);
 
       return publicationsData;
     } else {

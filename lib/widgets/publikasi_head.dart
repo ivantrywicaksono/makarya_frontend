@@ -14,7 +14,7 @@ class PublikasiHead extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           InkWell(
-            onTap: () => print(publication.artist.id),
+            onTap: () => context.go('/galeri/userdetail', extra: publication.artist),
             child: Row(
               children: [
                 CircleAvatar(
@@ -35,6 +35,7 @@ class PublikasiHead extends StatelessWidget {
               ],
             ),
           ),
+          if (publication.artist_id == context.read<UserProvider>().artist.id) 
           IconButton(
               onPressed: () {
                 showCupertinoModalPopup(

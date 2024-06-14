@@ -24,7 +24,6 @@ class UserService {
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as Map<String, dynamic>;
 
-      print(data);
 
       var {
         'id': id as int,
@@ -58,7 +57,6 @@ class UserService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body) as Map;
-      print(data);
 
       var {
         'id': id as int,
@@ -75,7 +73,6 @@ class UserService {
         role: role,
       );
 
-      print(userData);
       return userData;
     } else {
       throw Exception('Gagal');

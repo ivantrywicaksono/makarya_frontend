@@ -65,28 +65,28 @@ class _BerandaKomunitasState extends State<BerandaKomunitas> {
                     textAlign: TextAlign.justify,
                   ),
                   const SizedBox(height: 16.0),
-                  Container(
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12.0),
-                      border: Border.all(
-                        color: Utils.primaryColor,
-                      ),
-                    ),
-                    child: TextButton.icon(
-                      icon: Icon(
-                        Icons.edit_square,
-                        color: Utils.primaryColor,
-                        size: 20,
-                      ),
-                      onPressed: () {},
-                      label: Text(
-                        'Edit Profil Komunitas',
-                        style: Utils.textRegular,
-                      ),
-                    ),
-                  ),
+                  // Container(
+                  //   width: double.maxFinite,
+                  //   decoration: BoxDecoration(
+                  //     color: Colors.white,
+                  //     borderRadius: BorderRadius.circular(12.0),
+                  //     border: Border.all(
+                  //       color: Utils.primaryColor,
+                  //     ),
+                  //   ),
+                  //   child: TextButton.icon(
+                  //     icon: Icon(
+                  //       Icons.edit_square,
+                  //       color: Utils.primaryColor,
+                  //       size: 20,
+                  //     ),
+                  //     onPressed: () {},
+                  //     label: Text(
+                  //       'Ubah Profil Komunitas',
+                  //       style: Utils.textRegular,
+                  //     ),
+                  //   ),
+                  // ),
                   const SizedBox(height: 6.0),
                   Container(
                     width: double.maxFinite,

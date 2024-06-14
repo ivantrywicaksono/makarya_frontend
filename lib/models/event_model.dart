@@ -24,12 +24,10 @@ class Event {
   DateTime getDateTime() {
     DateTime dateTime =
         DateTime(date.year, date.month, date.day, time.hour, time.minute);
-    print(dateTime);
     return dateTime;
   }
 
   factory Event.fromJson(Map<String, dynamic> json) {
-    print(DateTime.now());
     return Event(
       id: json['id'],
       name: json['name'],

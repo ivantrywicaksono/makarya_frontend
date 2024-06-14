@@ -53,6 +53,7 @@ class _UpdateEventScreenState extends State<UpdateEventScreen> {
       price: int.parse(_priceController.text),
     );
     context.read<EventProvider>().update(updatedEvent);
+    context.pop();
   }
 
   @override

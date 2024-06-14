@@ -10,7 +10,6 @@ class EventService {
     if (response.statusCode == 200) {
       final Map<String, dynamic> data =
           jsonDecode(response.body) as Map<String, dynamic>;
-      print('data $data');
       Event event = Event.fromJson(data);
       return event;
     } else {
@@ -25,7 +24,6 @@ class EventService {
     );
 
     if (response.statusCode == 200) {
-      print('delete pub success');
     } else {
       throw Exception(response.body);
     }
@@ -36,7 +34,6 @@ class EventService {
         headers: Utils.requestHeaders(), body: jsonEncode(event.toMap()));
 
     if (response.statusCode == 200) {
-      print('update pub success');
     } else {
       throw Exception(response.body);
     }
@@ -54,10 +51,8 @@ class EventService {
       final Map<String, dynamic> data =
           jsonDecode(response.body) as Map<String, dynamic>;
 
-      print(data);
 
       Event eventData = Event.fromJson(data);
-      print(eventData);
 
       // return eventData;
     } else {
@@ -78,11 +73,9 @@ class EventService {
       final parsed =
           (jsonDecode(response.body) as List).cast<Map<String, dynamic>>();
 
-      print(parsed);
       List<Event> eventsData =
           parsed.map<Event>((json) => Event.fromJson(json)).toList();
 
-      for (Event event in eventsData) print(event.time);
       return eventsData;
     } else {
       // If the server did not return a 200 OK response,
@@ -99,7 +92,6 @@ class EventService {
     if (response.statusCode == 200) {
       final Map<String, dynamic> data =
           jsonDecode(response.body) as Map<String, dynamic>;
-      print('data $data');
       Event event = Event.fromJson(data);
       return event;
     } else {

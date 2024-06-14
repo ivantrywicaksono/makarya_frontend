@@ -4,9 +4,9 @@ class UserProvider extends ChangeNotifier {
   late User _user;
   User get user => _user;
 
-  late Artist _artist;
+  late Artist _artist = Artist(id: 0);
   Artist get artist => _artist;
-  late Community _community;
+  late Community _community = Community(id: 0);
   Community get community => _community;
 
   late String _role;
@@ -37,19 +37,14 @@ class UserProvider extends ChangeNotifier {
     try {
       User userData = await _userService.login(user);
       _user = userData;
-      print(userData);
 
       if (userData.role == 'Artist') {
         Artist artistData = await _artistService.get(userData.id);
-        print(artistData);
         _artist = artistData;
-        print(_artist.id);
       } else if (userData.role == 'Community') {
         Community communityData = await _communityService.get(userData.id);
         _community = communityData;
-        print(_community.id);
       }
-      print(_user.id);
       notifyListeners();
     } catch (e) {
       throw Exception(e);

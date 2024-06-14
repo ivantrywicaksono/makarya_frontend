@@ -9,3 +9,4 @@ part 'user_provider.dart';
 part 'publication_provider.dart';
 part 'community_provider.dart';
 part 'event_provider.dart';
+part 'artist_provider.dart';

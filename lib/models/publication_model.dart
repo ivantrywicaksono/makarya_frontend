@@ -22,7 +22,6 @@ class Publication {
   });
 
   factory Publication.fromJson(Map<String, dynamic> json) {
-    print(json);
     return Publication(
       id: json['id'],
       description: json['description'] as String,

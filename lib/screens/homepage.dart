@@ -22,7 +22,10 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () => context.go('/edit-user'),
+            onPressed: () {
+              Artist artist = context.read<UserProvider>().artist;
+              context.go('/user', extra: artist);
+            },
             icon: Icon(CupertinoIcons.person_crop_circle),
           ),
         ],

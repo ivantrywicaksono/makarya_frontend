@@ -4,7 +4,7 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   TextEditingController _emailController =
-      TextEditingController(text: 'community@example.com');
+      TextEditingController(text: 'ivan@me.com');
   TextEditingController _passwordController =
       TextEditingController(text: 'password');
   @override

@@ -49,6 +49,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
       price: int.parse(_priceController.text),
     );
     context.read<EventProvider>().create(newEvent, path);
+    context.pop();
   }
 
   @override
@@ -150,11 +151,9 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                               _dateController.text =
                                   DateFormat('dd MMMM yyyy', 'id_ID')
                                       .format(dateTime);
-                              print(_dateController.text);
                               setState(() {
                                 _date = dateTime;
                               });
-                              print('date' + _date.toString());
                             },
                           ),
                         ),
@@ -189,7 +188,6 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
                                 hours: DateTime.now().hour,
                                 minutes: DateTime.now().minute,
                               ).toString().split('.').first;
-                              print(_timeController.text);
 
                               setState(() {
                                 int totalMinutes = timerDuration.inMinutes;

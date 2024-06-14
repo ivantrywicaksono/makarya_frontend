@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:makarya_frontend/models/models.dart';
 import 'package:makarya_frontend/providers/providers.dart';
-import 'package:makarya_frontend/screens/editprofil.dart';
 import 'package:makarya_frontend/screens/screens.dart';
 
 import 'package:flutter/foundation.dart';
@@ -38,6 +37,7 @@ void main() {
           ChangeNotifierProvider(create: (_) => UserProvider()),
           ChangeNotifierProvider(create: (_) => PublicationProvider()),
           ChangeNotifierProvider(create: (_) => CommunityProvider()),
+          ChangeNotifierProvider(create: (_) => ArtistProvider()),
           ChangeNotifierProvider(create: (_) => EventProvider()),
         ],
         child: MyApp(),
@@ -120,9 +120,16 @@ class MyApp extends StatelessWidget {
                 const HomePage(),
             routes: [
               GoRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                path: 'edit-user',
-                builder: (context, state) => EditProfilePage(),
+                path: 'user',
+                builder: (context, state) => UserScreen(artist: state.extra as Artist),
+                routes: [
+                  GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    path: 'edit',
+                    builder: (context, state) => EditProfilePage(),
+                  ),
+                  
+                ],
               ),
             ],
           ),
@@ -131,6 +138,11 @@ class MyApp extends StatelessWidget {
             path: '/galeri',
             builder: (context, state) => GaleriScreen(),
             routes: <RouteBase>[
+              GoRoute(
+                    parentNavigatorKey: _rootNavigatorKey,
+                    path: 'userdetail',
+                    builder: (context, state) => UserDetail(artist: state.extra as Artist,),
+                  ),
               GoRoute(
                 parentNavigatorKey: _rootNavigatorKey,
                 path: 'create',
@@ -283,7 +295,6 @@ class _HomeState extends State<Home> {
 
   static int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).uri.path;
-    print(location);
     if (location.startsWith('/')) {
       return 0;
     }

@@ -106,7 +106,6 @@ class _DaftarPageState extends State<DaftarPage> {
                         onChanged: (value) {
                           setState(() {
                             _tipeAkunValue = value!;
-                            print(_tipeAkunValue);
                           });
                         },
                         decoration: const InputDecoration(
