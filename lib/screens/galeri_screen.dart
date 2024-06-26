@@ -20,8 +20,9 @@ class _GaleriScreenState extends State<GaleriScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<Publication> publications =
-        context.watch<PublicationProvider>().publications;
+    print('galeri build');
+    // List<Publication> publications =
+    //     context.watch<PublicationProvider>().publications;
 
     Color fillColor = Utils.primaryColor;
     Color textColor = Colors.white;
@@ -97,12 +98,39 @@ class _GaleriScreenState extends State<GaleriScreen> {
             //     ),
             //   ],
             // ),
-            for (Publication p in publications)
-              PublikasiPost(
-                publication: p,
-                onDeleteTap: () =>
-                    context.read<PublicationProvider>().delete(p.id),
-              ),
+            // for (Publication p in publications)
+            //   PublikasiPost(
+            //     publication: p,
+            //     onDeleteTap: () =>
+            //         context.read<PublicationProvider>().delete(p.id),
+            //   ),
+
+            FutureBuilder<List<Publication>>(
+              future: context.read<PublicationProvider>().getAll(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (!snapshot.hasData) {
+                  return Text('No data');
+                } else {
+                  return Column(children: [
+                    for (Publication p in snapshot.data!)
+                      PublikasiPost(
+                        publication: p,
+                        onDeleteTap: () =>
+                            context.read<PublicationProvider>().delete(p.id),
+                      )
+                  ]);
+
+                  // return PublikasiPost(
+                  //   publication: snapshot.data!,
+                  //   onDeleteTap: () {},
+                  // );
+                }
+              },
+            ),
           ],
         ),
       ),

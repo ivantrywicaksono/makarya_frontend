@@ -62,7 +62,7 @@ class MyApp extends StatelessWidget {
     // },
     navigatorKey: _rootNavigatorKey,
     // initialLocation: '/galeri/comments',
-    initialLocation: '/login',
+    initialLocation: '/splash',
     debugLogDiagnostics: true,
     routes: <RouteBase>[
       GoRoute(
@@ -121,14 +121,17 @@ class MyApp extends StatelessWidget {
             routes: [
               GoRoute(
                 path: 'user',
-                builder: (context, state) => UserScreen(artist: state.extra as Artist),
+                builder: (context, state) => UserScreen(
+                    // artist: state.extra as Artist,
+                    ),
                 routes: [
                   GoRoute(
                     parentNavigatorKey: _rootNavigatorKey,
                     path: 'edit',
-                    builder: (context, state) => EditProfilePage(),
+                    builder: (context, state) => EditProfilePage(
+                      artist: state.extra as Artist,
+                    ),
                   ),
-                  
                 ],
               ),
             ],
@@ -139,10 +142,12 @@ class MyApp extends StatelessWidget {
             builder: (context, state) => GaleriScreen(),
             routes: <RouteBase>[
               GoRoute(
-                    parentNavigatorKey: _rootNavigatorKey,
-                    path: 'userdetail',
-                    builder: (context, state) => UserDetail(artist: state.extra as Artist,),
-                  ),
+                parentNavigatorKey: _rootNavigatorKey,
+                path: 'userdetail',
+                builder: (context, state) => UserDetail(
+                  artist: state.extra as Artist,
+                ),
+              ),
               GoRoute(
                 parentNavigatorKey: _rootNavigatorKey,
                 path: 'create',
@@ -186,7 +191,7 @@ class MyApp extends StatelessWidget {
               // ),
               GoRoute(
                 path: ':komunitasId',
-                builder: (context, state) => DetailKomunitas(), //Read Screen
+                builder: (context, state) => DetailKomunitas(community: state.extra as Community), //Read Screen
                 // routes: [
                 //   GoRoute(
                 //     parentNavigatorKey: _rootNavigatorKey,

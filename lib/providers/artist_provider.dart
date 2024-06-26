@@ -26,4 +26,12 @@ class ArtistProvider extends ChangeNotifier {
       throw Exception(e);
     }
   }
+  Future<void> update(Artist artist) async {
+    try {
+      await _artistService.update(artist);
+      notifyListeners();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
 }

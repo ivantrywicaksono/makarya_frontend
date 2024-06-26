@@ -20,11 +20,22 @@ class EventProvider extends ChangeNotifier {
     }
   }
 
+  Future<Event> getLatest() async {
+    try {
+      Event eventData = await _eventService.getLatest();
+      _event = eventData;
+      notifyListeners();
+      return eventData;
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   Future<List<Event>> getAll([int id = 0]) async {
     try {
+      // _event = await _eventService.getLatest();
       List<Event> eventsData = await _eventService.getAll(id);
       _events = eventsData;
-      _event = await _eventService.getLatest();
       notifyListeners();
       return eventsData;
     } catch (e) {

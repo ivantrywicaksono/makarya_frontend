@@ -2,7 +2,10 @@ part of screens;
 
 class UserDetail extends StatefulWidget {
   final Artist artist;
-  const UserDetail({super.key, required this.artist});
+  const UserDetail({
+    super.key,
+    required this.artist,
+  });
 
   @override
   _UserDetailState createState() => _UserDetailState();
@@ -12,15 +15,15 @@ class _UserDetailState extends State<UserDetail> {
   @override
   void initState() {
     super.initState();
-    context.read<PublicationProvider>().getAll(widget.artist.id);
+    // context.read<PublicationProvider>().getAll(widget.artist.id);
   }
 
   @override
   Widget build(BuildContext context) {
     Artist artist = widget.artist;
     print(artist.id);
-    List<Publication> publications =
-        context.watch<PublicationProvider>().publications;
+    // List<Publication> publications =
+    //     context.watch<PublicationProvider>().publications;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -70,12 +73,32 @@ class _UserDetailState extends State<UserDetail> {
               ),
             ),
             SizedBox(height: 12),
-            for (Publication publication in publications)
-              PublikasiPost(
-                publication: publication,
-                onDeleteTap: () =>
-                    context.read<PublicationProvider>().delete(publication.id),
-              )
+            FutureBuilder<List<Publication>>(
+              future: context.read<PublicationProvider>().getAll(artist.id),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (!snapshot.hasData) {
+                  return Text('No data');
+                } else {
+                  return Column(children: [
+                    for (Publication p in snapshot.data!)
+                      PublikasiPost(
+                        publication: p,
+                        onDeleteTap: () =>
+                            context.read<PublicationProvider>().delete(p.id),
+                      )
+                  ]);
+
+                  // return PublikasiPost(
+                  //   publication: snapshot.data!,
+                  //   onDeleteTap: () {},
+                  // );
+                }
+              },
+            ),
           ],
         ),
       ),

@@ -35,4 +35,17 @@ class ArtistService {
       throw Exception(response.body);
     }
   }
+
+  Future<void> update(Artist artist) async {
+    final response = await http.put(
+      Utils.getApiUri('/artist/${artist.id}'),
+      headers: Utils.requestHeaders(),
+      body: jsonEncode(artist)
+    );
+
+    if (response.statusCode == 200) {
+    } else {
+      throw Exception(response.body);
+    }
+  }
 }

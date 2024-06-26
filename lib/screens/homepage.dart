@@ -23,8 +23,11 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Artist artist = context.read<UserProvider>().artist;
-              context.go('/user', extra: artist);
+              // Artist artist = context.read<UserProvider>().artist;
+              context.go(
+                '/user',
+                // extra: artist,
+              );
             },
             icon: Icon(CupertinoIcons.person_crop_circle),
           ),
@@ -38,7 +41,22 @@ class _HomePageState extends State<HomePage> {
               heading: "Acara",
               paragraph: "Acara teraktual dari komunitas",
             ),
-            EventCard(event: context.watch<EventProvider>().event,),
+            FutureBuilder<Event>(
+              future: context.read<EventProvider>().getLatest(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (!snapshot.hasData) {
+                  return Text('No data');
+                } else {
+                  return EventCard(
+                    event: snapshot.data!,
+                  );
+                }
+              },
+            ),
             SizedBox(height: 18),
             Divider(),
             Heading(

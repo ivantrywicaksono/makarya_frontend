@@ -50,4 +50,11 @@ class UserProvider extends ChangeNotifier {
       throw Exception(e);
     }
   }
+
+  Future<Artist> getProfile() async {
+    Artist artistData = await _artistService.get(_user.id);
+    _artist = artistData;
+    notifyListeners();
+    return artistData;
+  }
 }
