@@ -11,6 +11,8 @@ class _BerandaKomunitasState extends State<BerandaKomunitas> {
   @override
   void initState() {
     super.initState();
+    context.read<UserProvider>().getProfile();
+
     context
         .read<EventProvider>()
         .getAll(context.read<UserProvider>().community.id);
@@ -18,8 +20,8 @@ class _BerandaKomunitasState extends State<BerandaKomunitas> {
 
   @override
   Widget build(BuildContext context) {
-    Community community = context.read<UserProvider>().community;
-    List<Event> events = context.watch<EventProvider>().events;
+    Community community = context.watch<UserProvider>().community;
+    // context.watch<EventProvider>().events;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -65,28 +67,31 @@ class _BerandaKomunitasState extends State<BerandaKomunitas> {
                     textAlign: TextAlign.justify,
                   ),
                   const SizedBox(height: 16.0),
-                  // Container(
-                  //   width: double.maxFinite,
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.white,
-                  //     borderRadius: BorderRadius.circular(12.0),
-                  //     border: Border.all(
-                  //       color: Utils.primaryColor,
-                  //     ),
-                  //   ),
-                  //   child: TextButton.icon(
-                  //     icon: Icon(
-                  //       Icons.edit_square,
-                  //       color: Utils.primaryColor,
-                  //       size: 20,
-                  //     ),
-                  //     onPressed: () {},
-                  //     label: Text(
-                  //       'Ubah Profil Komunitas',
-                  //       style: Utils.textRegular,
-                  //     ),
-                  //   ),
-                  // ),
+                  Container(
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12.0),
+                      border: Border.all(
+                        color: Utils.primaryColor,
+                      ),
+                    ),
+                    child: TextButton.icon(
+                      icon: Icon(
+                        Icons.edit_square,
+                        color: Utils.primaryColor,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        context.go('/home-komunitas/editprofile/',
+                            extra: community);
+                      },
+                      label: Text(
+                        'Ubah Profil Komunitas',
+                        style: Utils.textRegular,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 6.0),
                   Container(
                     width: double.maxFinite,
@@ -153,10 +158,32 @@ class _BerandaKomunitasState extends State<BerandaKomunitas> {
                 ),
               ],
             ),
-            for (Event event in events)
-              EventCard(
-                event: event,
-              )
+            FutureBuilder<List<Event>>(
+              future: context.read<EventProvider>().getAll(community.id),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (!snapshot.hasData) {
+                  return Text('No data');
+                } else {
+                  return Column(children: [
+                    for (Event e in snapshot.data!)
+                      EventCard(
+                          event: e,
+                          onDeleteTap: () {
+                            context.read<EventProvider>().delete(e.id);
+                            setState(() {});
+                          })
+                  ]);
+                }
+              },
+            ),
+            // for (Event event in events)
+            //   EventCard(
+            //     event: event,
+            //   )
           ],
         ),
       ),

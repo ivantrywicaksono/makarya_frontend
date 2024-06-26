@@ -1,6 +1,7 @@
 library models;
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 part 'event_model.dart';
 part 'publication_model.dart';

@@ -86,15 +86,22 @@ class MyApp extends StatelessWidget {
             path: 'create',
             builder: (context, state) => CreateEventScreen(
               title: 'Tambah Acara',
-            ), //Create Screen
-          ), //
+            ),
+          ),
+          GoRoute(
+            parentNavigatorKey: _rootNavigatorKey,
+            path: 'editprofile',
+            builder: (context, state) => UpdateCommunityScreen(
+              community: state.extra as Community,
+            ),
+          ),
           GoRoute(
             parentNavigatorKey: _rootNavigatorKey,
             path: 'edit/:id',
             builder: (context, state) => UpdateEventScreen(
               title: 'Ubah Acara',
               event: state.extra as Event,
-            ), //Create Screen
+            ),
           ), //
         ],
       ),
@@ -191,7 +198,8 @@ class MyApp extends StatelessWidget {
               // ),
               GoRoute(
                 path: ':komunitasId',
-                builder: (context, state) => DetailKomunitas(community: state.extra as Community), //Read Screen
+                builder: (context, state) => DetailKomunitas(
+                    community: state.extra as Community), //Read Screen
                 // routes: [
                 //   GoRoute(
                 //     parentNavigatorKey: _rootNavigatorKey,

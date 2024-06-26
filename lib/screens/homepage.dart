@@ -53,6 +53,7 @@ class _HomePageState extends State<HomePage> {
                 } else {
                   return EventCard(
                     event: snapshot.data!,
+                    onDeleteTap: () {},
                   );
                 }
               },

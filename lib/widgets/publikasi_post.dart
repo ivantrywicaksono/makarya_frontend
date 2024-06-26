@@ -16,7 +16,6 @@ class PublikasiPost extends StatefulWidget {
 
 class _PublikasiPostState extends State<PublikasiPost> {
   bool _isLiked = false;
-  
 
   @override
   Widget build(BuildContext context) {

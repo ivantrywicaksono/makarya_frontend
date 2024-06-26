@@ -145,6 +145,7 @@ class _DetailKomunitasState extends State<DetailKomunitas> {
                           for (Event e in snapshot.data!)
                             EventCard(
                               event: e,
+                              onDeleteTap: () {},
                             )
                         ]);
                       }

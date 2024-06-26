@@ -43,18 +43,18 @@ class CommunityService {
     }
   }
 
-  Future<Community> update(Community community) async {
+  Future<void> update(Community community) async {
     final response = await http.put(
-      Utils.getApiUri('/community/${community.id}'),
+      Utils.getApiUri('/community/${community.user_id}'),
       headers: Utils.requestHeaders(),
-      body: jsonEncode(community)
+      body: jsonEncode(community.toJson()),
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body) as Map<String, dynamic>;
+      // final data = jsonDecode(response.body) as Map<String, dynamic>;
 
-      Community community = Community.fromJson(data);
-      return community;
+      // Community community = Community.fromJson(data);
+      // return community;
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.

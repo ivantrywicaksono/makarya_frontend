@@ -165,7 +165,7 @@ class _UpdateEventScreenState extends State<UpdateEventScreen> {
             ),
             LabelInput(
               controller: _priceController,
-              type: TextInputType.text,
+              type: TextInputType.number,
               label: 'Harga',
               placeholder: 'e.g. 10.000',
             ),

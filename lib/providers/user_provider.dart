@@ -37,6 +37,7 @@ class UserProvider extends ChangeNotifier {
     try {
       User userData = await _userService.login(user);
       _user = userData;
+      _role = userData.role;
 
       if (userData.role == 'Artist') {
         Artist artistData = await _artistService.get(userData.id);
@@ -51,10 +52,15 @@ class UserProvider extends ChangeNotifier {
     }
   }
 
-  Future<Artist> getProfile() async {
-    Artist artistData = await _artistService.get(_user.id);
-    _artist = artistData;
+  Future<void> getProfile() async {
+    if (_role == 'Artist') {
+      Artist artistData = await _artistService.get(_user.id);
+      _artist = artistData;
+    } else if (_role == 'Community') {
+      Community communityData = await _communityService.get(_user.id);
+      _community = communityData;
+    }
     notifyListeners();
-    return artistData;
+    // return artistData;
   }
 }

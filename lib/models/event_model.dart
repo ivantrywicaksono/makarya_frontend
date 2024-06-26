@@ -34,10 +34,10 @@ class Event {
       location: json['location'],
       date: DateTime.parse(json['date']),
       time: TimeOfDay.fromDateTime(
-          DateTime.parse("${json['date']} ${json['time']}")),
+          DateTime.parse("${DateFormat('yyyy-MM-dd').format(DateTime.parse(json['date']))} ${json['time']}")),
       image: json['image'],
-      price: json['price'],
-      community_id: json['community_id'],
+      price: int.parse(json['price'].toString()),
+      community_id: int.parse(json['community_id'].toString()),
     );
   }
 

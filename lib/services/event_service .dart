@@ -53,7 +53,6 @@ class EventService {
 
 
       Event eventData = Event.fromJson(data);
-
       // return eventData;
     } else {
       // If the server did not return a 200 OK response,

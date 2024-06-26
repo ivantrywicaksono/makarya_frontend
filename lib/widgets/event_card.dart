@@ -2,9 +2,12 @@ part of widgets;
 
 class EventCard extends StatefulWidget {
   Event event;
+  void Function() onDeleteTap;
+
   EventCard({
     super.key,
     required this.event,
+    required this.onDeleteTap,
   });
 
   @override
@@ -95,63 +98,65 @@ class EventCardState extends State<EventCard> {
             ),
             SizedBox(height: 10.0),
             // RemindMeButton(onPressed: _toggleReminder, isReminded: _isReminded),
-            if(widget.event.community_id == context.read<UserProvider>().community.id) 
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    // width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(229, 0, 0, 1),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: TextButton.icon(
-                      icon: Icon(
-                        Icons.delete_forever,
-                        color: Colors.white,
-                        size: 20,
+            if (widget.event.community_id ==
+                context.read<UserProvider>().community.id)
+              Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      // width: double.maxFinite,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(229, 0, 0, 1),
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
-                      onPressed: () {
-                        context.read<EventProvider>().delete(widget.event.id);
-                      },
-                      label: Text(
-                        'Hapus',
-                        style: Utils.textStyle(
+                      child: TextButton.icon(
+                        icon: Icon(
+                          Icons.delete_forever,
                           color: Colors.white,
+                          size: 20,
+                        ),
+                        onPressed: () {
+                          widget.onDeleteTap();
+                          // context.read<EventProvider>().delete(widget.event.id);
+                        },
+                        label: Text(
+                          'Hapus',
+                          style: Utils.textStyle(
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(width: 12),
-                Expanded(
-                  child: Container(
-                    // width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      color: Color.fromRGBO(22, 79, 225, 1),
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: TextButton.icon(
-                      icon: Icon(
-                        Icons.edit_square,
-                        color: Colors.white,
-                        size: 20,
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Container(
+                      // width: double.maxFinite,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(22, 79, 225, 1),
+                        borderRadius: BorderRadius.circular(12.0),
                       ),
-                      onPressed: () {
-                        context.go('/home-komunitas/edit/${widget.event.id}',
-                            extra: widget.event);
-                      },
-                      label: Text(
-                        'Ubah',
-                        style: Utils.textStyle(
+                      child: TextButton.icon(
+                        icon: Icon(
+                          Icons.edit_square,
                           color: Colors.white,
+                          size: 20,
+                        ),
+                        onPressed: () {
+                          context.go('/home-komunitas/edit/${widget.event.id}',
+                              extra: widget.event);
+                        },
+                        label: Text(
+                          'Ubah',
+                          style: Utils.textStyle(
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
-            )
+                ],
+              )
           ],
         ),
       ),

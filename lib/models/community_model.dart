@@ -30,4 +30,13 @@ class Community {
       user_id: json['user_id'],
     );
   }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'description': description,
+        'phone_number': phone_number,
+        'group_link': group_link,
+        'image': image,
+        'user_id': user_id,
+      };
 }

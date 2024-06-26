@@ -39,3 +39,4 @@ part 'beranda_komunitas.dart';
 part 'editprofil.dart';
 part 'user_screen.dart';
 part 'user_detail.dart';
+part 'update_community_screen.dart';
