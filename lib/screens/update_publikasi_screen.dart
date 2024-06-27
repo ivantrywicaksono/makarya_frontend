@@ -24,6 +24,18 @@ class _UpdatePublikasiScreenState extends State<UpdatePublikasiScreen> {
         TextEditingController(text: widget.publication.description);
   }
 
+  Future<String> getImageUrl(String path) async {
+    try {
+      return await FirebaseStorage.instance.ref().child(path).getDownloadURL();
+    } catch (e) {
+      print('Error getting download URL for $path: $e');
+      return await FirebaseStorage.instance
+          .ref()
+          .child('publication/noimage.png')
+          .getDownloadURL();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Color primary = Utils.primaryColor;
@@ -35,15 +47,27 @@ class _UpdatePublikasiScreenState extends State<UpdatePublikasiScreen> {
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 18),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: CachedNetworkImage(
-                  imageUrl:
-                      '${Utils.baseUrl}storage/${widget.publication.image}',
-                ),
-              ),
+            FutureBuilder<String>(
+              future: getImageUrl(widget.publication.image),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (!snapshot.hasData) {
+                  return Text('No data');
+                } else {
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 18),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: CachedNetworkImage(
+                        imageUrl: snapshot.data!,
+                      ),
+                    ),
+                  );
+                }
+              },
             ),
             SizedBox(height: 22),
             LabelInput(

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "754274611695",
+    "project_id": "makarya-android",
+    "storage_bucket": "makarya-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:754274611695:android:4f856437ad2a142766861a",
+        "android_client_info": {
+          "package_name": "com.example.makarya_frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfolfdQ0XAujfHIiwEWf8Sad8HmP6n1Zs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

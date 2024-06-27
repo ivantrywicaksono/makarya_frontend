@@ -119,8 +119,10 @@ class _GaleriScreenState extends State<GaleriScreen> {
                     for (Publication p in snapshot.data!)
                       PublikasiPost(
                         publication: p,
-                        onDeleteTap: () =>
-                            context.read<PublicationProvider>().delete(p.id),
+                        onDeleteTap: () {
+                          context.read<PublicationProvider>().delete(p.id);
+                          setState(() {});
+                        },
                       )
                   ]);
 

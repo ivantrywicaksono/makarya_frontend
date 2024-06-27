@@ -23,6 +23,12 @@ class EventCardState extends State<EventCard> {
     });
   }
 
+  Future<String> getImageUrl(String path) async {
+    final url =
+        await FirebaseStorage.instance.ref().child(path).getDownloadURL();
+    return url;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -37,19 +43,31 @@ class EventCardState extends State<EventCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 200,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: CachedNetworkImageProvider(
-                    '${Utils.baseUrl}storage/${widget.event.image}',
-                  ),
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
+            FutureBuilder<String>(
+              future: getImageUrl(widget.event.image),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (!snapshot.hasData) {
+                  return Text('No data');
+                } else {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 200,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: CachedNetworkImageProvider(snapshot.data!),
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    ),
+                  );
+                }
+              },
             ),
+
             SizedBox(
               height: 10,
             ),

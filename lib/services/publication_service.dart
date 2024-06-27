@@ -77,6 +77,11 @@ class PublicationService {
   }
 
   Future<List<Publication>> getAll([int id = 0]) async {
+    final FirebaseStorage storage = FirebaseStorage.instance;
+    final Reference storageRef = FirebaseStorage.instance.ref();
+    final Reference imagesRef = storageRef.child("publication");
+    final Reference imageRef = storageRef.child("publication/test_pub.png");
+
     String endPoint = id > 0 ? '/publication/artist/$id' : '/publication';
     final response = await http.get(
       Utils.getApiUri(endPoint),

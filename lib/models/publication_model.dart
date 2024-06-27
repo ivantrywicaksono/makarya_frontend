@@ -20,6 +20,7 @@ class Publication {
     this.likes = 0,
     this.comments,
   });
+  
 
   factory Publication.fromJson(Map<String, dynamic> json) {
     return Publication(
@@ -31,8 +32,9 @@ class Publication {
       artist: Artist.fromJson(json['artist']),
       likes: json['likes_count'] ?? 0,
       comments: (json['comments'] as List<dynamic>?)
-          ?.map((item) => Comment.fromJson(item))
-          .toList() ?? [],
+              ?.map((item) => Comment.fromJson(item))
+              .toList() ??
+          [],
     );
   }
 

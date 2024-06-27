@@ -75,7 +75,7 @@ class PublikasiTail extends StatelessWidget {
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
                 icon: Icon(CupertinoIcons.link),
-                onPressed: () => context.go('/login'),
+                onPressed: () {},
               ),
             ],
           ),

@@ -1,12 +1,13 @@
 library widgets;
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:makarya_frontend/providers/providers.dart';
-import 'package:makarya_frontend/utils/utils.dart';
+import '/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 

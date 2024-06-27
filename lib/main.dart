@@ -3,7 +3,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:makarya_frontend/models/models.dart';
 import 'package:makarya_frontend/providers/providers.dart';
 import 'package:makarya_frontend/screens/screens.dart';
-
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,7 +23,12 @@ final GlobalKey<NavigatorState> _communityShellNavigatorKey =
 final GlobalKey<NavigatorState> _govermentShellNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'goverment');
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
   GoogleFonts.config.allowRuntimeFetching = false;
   LicenseRegistry.addLicense(() async* {
     final license = await rootBundle.loadString('google_fonts/OFL.txt');

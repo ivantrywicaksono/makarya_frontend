@@ -4,9 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 class Utils {
   Utils._();
 
-  static String baseUrl = 'http://192.168.1.7:8000/';
+  // static String baseUrl = 'http://192.168.1.7:8000/';
   // static String baseUrl = 'http://192.168.188.183:8000/';
-  // static String baseUrl = 'https://makaryabackend-production.up.railway.app/';
+  static String baseUrl = 'https://makaryabackend-production.up.railway.app/';
 
   static Uri getApiUri(String endpoint) {
     return Uri.parse('${baseUrl}api$endpoint');

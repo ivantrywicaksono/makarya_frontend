@@ -4,7 +4,8 @@ class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   TextEditingController _emailController =
-      TextEditingController(text: 'community@example.com');
+      TextEditingController(text: 'ivan@me.com');
+  // TextEditingController(text: 'community@example.com');
   TextEditingController _passwordController =
       TextEditingController(text: 'password');
   @override
@@ -72,8 +73,7 @@ class LoginScreen extends StatelessWidget {
 
                     if (role == 'Artist')
                       context.go('/');
-                    else if (role == 'Community')
-                      context.go('/home-komunitas');
+                    else if (role == 'Community') context.go('/home-komunitas');
                     // else if (role == 'Goverment') context.go('/pengajuan');
                   }).catchError((error) {
                     ScaffoldMessenger.of(context).showSnackBar(

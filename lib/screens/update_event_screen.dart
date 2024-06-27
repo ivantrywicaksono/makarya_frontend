@@ -23,6 +23,17 @@ class _UpdateEventScreenState extends State<UpdateEventScreen> {
 
   late DateTime _date;
   late TimeOfDay _time;
+  Future<String> getImageUrl(String path) async {
+    try {
+      return await FirebaseStorage.instance.ref().child(path).getDownloadURL();
+    } catch (e) {
+      print('Error getting download URL for $path: $e');
+      return await FirebaseStorage.instance
+          .ref()
+          .child('event/noimage.png')
+          .getDownloadURL();
+    }
+  }
 
   @override
   void initState() {
@@ -68,14 +79,27 @@ class _UpdateEventScreenState extends State<UpdateEventScreen> {
         padding: EdgeInsets.all(20),
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(bottom: 18),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: CachedNetworkImage(
-                  imageUrl: '${Utils.baseUrl}storage/${widget.event.image}',
-                ),
-              ),
+            FutureBuilder<String>(
+              future: getImageUrl(widget.event.image),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (!snapshot.hasData) {
+                  return Text('No data');
+                } else {
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 18),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: CachedNetworkImage(
+                        imageUrl: snapshot.data!,
+                      ),
+                    ),
+                  );
+                }
+              },
             ),
             SizedBox(height: 12),
             LabelInput(

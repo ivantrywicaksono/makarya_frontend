@@ -8,6 +8,18 @@ class BerandaKomunitas extends StatefulWidget {
 }
 
 class _BerandaKomunitasState extends State<BerandaKomunitas> {
+  Future<String> getImageUrl(String path) async {
+    try {
+      return await FirebaseStorage.instance.ref().child(path).getDownloadURL();
+    } catch (e) {
+      print('Error getting download URL for $path: $e');
+      return await FirebaseStorage.instance
+          .ref()
+          .child('profile/profile.jpg')
+          .getDownloadURL();
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -42,11 +54,24 @@ class _BerandaKomunitasState extends State<BerandaKomunitas> {
                 children: [
                   Row(
                     children: [
-                      CircleAvatar(
-                        radius: 32,
-                        backgroundImage: CachedNetworkImageProvider(
-                          '${Utils.baseUrl}storage/${community.image}',
-                        ),
+                      FutureBuilder<String>(
+                        future: getImageUrl(community.image),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else if (!snapshot.hasData) {
+                            return Text('No data');
+                          } else {
+                            return CircleAvatar(
+                              backgroundImage:
+                                  CachedNetworkImageProvider(snapshot.data!),
+                              radius: 32,
+                            );
+                          }
+                        },
                       ),
                       SizedBox(width: 16),
                       Text(community.name,

@@ -64,6 +64,18 @@ class _KomunitasCardState extends State<KomunitasCard> {
     });
   }
 
+  Future<String> getImageUrl(String path) async {
+    try {
+      return await FirebaseStorage.instance.ref().child(path).getDownloadURL();
+    } catch (e) {
+      print('Error getting download URL for $path: $e');
+      return await FirebaseStorage.instance
+          .ref()
+          .child('profile/profile.jpg')
+          .getDownloadURL();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -85,10 +97,23 @@ class _KomunitasCardState extends State<KomunitasCard> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CircleAvatar(
-                  backgroundImage: CachedNetworkImageProvider(
-                    '${Utils.baseUrl}storage/${widget.community.image}',
-                  ),
+                FutureBuilder<String>(
+                  future: getImageUrl(widget.community.image),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return CircularProgressIndicator();
+                    } else if (snapshot.hasError) {
+                      return Text('Error: ${snapshot.error}');
+                    } else if (!snapshot.hasData) {
+                      return Text('No data');
+                    } else {
+                      return CircleAvatar(
+                        backgroundImage:
+                            CachedNetworkImageProvider(snapshot.data!),
+                        radius: 32,
+                      );
+                    }
+                  },
                 ),
                 const SizedBox(width: 16.0),
                 Expanded(
