@@ -54,16 +54,17 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   void _submitForm() {}
 
-  File? _image;
+  XFile? _image;
+  File? _img;
   ImagePicker picker = ImagePicker();
-  // TextEditingController _descriptionController = TextEditingController();
 
   Future getImageFromGallery() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
-        _image = File(pickedFile.path);
+        _image = XFile(pickedFile.path);
+        _img = File(pickedFile.path);
       }
     });
   }
@@ -87,24 +88,36 @@ class _EditProfilePageState extends State<EditProfilePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Profile picture
-              FutureBuilder<String>(
-                future: getImageUrl(artist.image),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else if (!snapshot.hasData) {
-                    return Text('No data');
-                  } else {
-                    return CircleAvatar(
-                      backgroundImage:
-                          CachedNetworkImageProvider(snapshot.data!),
-                      radius: 32,
-                    );
-                  }
-                },
-              ),
+              _img == null
+                  ? FutureBuilder<String>(
+                      future: getImageUrl(artist.image),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else if (!snapshot.hasData) {
+                          return Text('No data');
+                        } else {
+                          return GestureDetector(
+                            onTap: () => getImageFromGallery(),
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  CachedNetworkImageProvider(snapshot.data!),
+                              radius: 48,
+                            ),
+                          );
+                        }
+                      },
+                    )
+                  : GestureDetector(
+                      onTap: () => getImageFromGallery(),
+                      child: CircleAvatar(
+                        radius: 48,
+                        backgroundImage: FileImage(_img!),
+                      ),
+                    ),
 
               // Text fields for each profile information
               LabelInput(
@@ -131,13 +144,31 @@ class _EditProfilePageState extends State<EditProfilePage> {
               // Save button
               PrimaryButton(
                 text: 'Simpan',
-                onPressed: () {
+                onPressed: () async {
+                  // String path;
+                  // if (_image == null) {
+                  //   path = '';
+                  //   return;
+                  // } else {
+                  //   path = _image?.path ?? '';
+                  // }
+                  String? uploadImagePath;
+                  if (_image != null) {
+                    String extension = _image!.name.split('.').last;
+                    uploadImagePath = 'profile/${artist.id}.$extension';
+                  }
                   Artist updatedArtist = Artist(
                     id: user_id,
                     name: _namaController.text,
                     description: _deskripsiController.text,
                     phone_number: _noTeleponController.text,
+                    image: uploadImagePath ?? artist.image,
                   );
+                  if (_image != null) {
+                    await FirebaseStorage.instance
+                        .ref(uploadImagePath)
+                        .putFile(_img!);
+                  }
                   context.read<ArtistProvider>().update(updatedArtist);
                   context.read<UserProvider>().getProfile();
                   context.pop();

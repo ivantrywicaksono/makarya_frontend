@@ -24,9 +24,15 @@ class _PublikasiPostState extends State<PublikasiPost> {
   //   setImageUrl(widget.publication.image);
   // }
   Future<String> getImageUrl(String path) async {
-    final url =
-        await FirebaseStorage.instance.ref().child(path).getDownloadURL();
-    return url;
+    try {
+      return await FirebaseStorage.instance.ref().child(path).getDownloadURL();
+    } catch (e) {
+      print('Error getting download URL for $path: $e');
+      return await FirebaseStorage.instance
+          .ref()
+          .child('publication/noimage.png')
+          .getDownloadURL();
+    }
   }
 
   @override

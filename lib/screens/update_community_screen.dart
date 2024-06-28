@@ -54,7 +54,8 @@ class _UpdateCommunityScreenState extends State<UpdateCommunityScreen> {
 
   void _submitForm() {}
 
-  File? _image;
+  XFile? _image;
+  File? _img;
   ImagePicker picker = ImagePicker();
   // TextEditingController _descriptionController = TextEditingController();
 
@@ -63,7 +64,8 @@ class _UpdateCommunityScreenState extends State<UpdateCommunityScreen> {
 
     setState(() {
       if (pickedFile != null) {
-        _image = File(pickedFile.path);
+        _image = XFile(pickedFile.path);
+        _img = File(pickedFile.path);
       }
     });
   }
@@ -86,26 +88,36 @@ class _UpdateCommunityScreenState extends State<UpdateCommunityScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              FutureBuilder<String>(
-                future: getImageUrl(community.image),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else if (!snapshot.hasData) {
-                    return Text('No data');
-                  } else {
-                    return GestureDetector(
+              _img == null
+                  ? FutureBuilder<String>(
+                      future: getImageUrl(community.image),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else if (!snapshot.hasData) {
+                          return Text('No data');
+                        } else {
+                          return GestureDetector(
+                            onTap: () => getImageFromGallery(),
+                            child: CircleAvatar(
+                              backgroundImage:
+                                  CachedNetworkImageProvider(snapshot.data!),
+                              radius: 48,
+                            ),
+                          );
+                        }
+                      },
+                    )
+                  : GestureDetector(
+                      onTap: () => getImageFromGallery(),
                       child: CircleAvatar(
-                        backgroundImage:
-                            CachedNetworkImageProvider(snapshot.data!),
                         radius: 48,
+                        backgroundImage: FileImage(_img!),
                       ),
-                    );
-                  }
-                },
-              ),
+                    ),
 
               // Text fields for each profile information
               LabelInput(
@@ -132,7 +144,12 @@ class _UpdateCommunityScreenState extends State<UpdateCommunityScreen> {
               // Save button
               PrimaryButton(
                 text: 'Simpan',
-                onPressed: () {
+                onPressed: () async {
+                  String? uploadImagePath;
+                  if (_image != null) {
+                    String extension = _image!.name.split('.').last;
+                    uploadImagePath = 'community/${community.id}.$extension';
+                  }
                   Community updatedCommunity = Community(
                     id: community.id,
                     user_id: community.user_id,
@@ -140,7 +157,13 @@ class _UpdateCommunityScreenState extends State<UpdateCommunityScreen> {
                     description: _deskripsiController.text,
                     phone_number: _noTeleponController.text,
                     group_link: _groupController.text,
+                    image: uploadImagePath ?? community.image,
                   );
+                  if (_image != null) {
+                    await FirebaseStorage.instance
+                        .ref(uploadImagePath)
+                        .putFile(_img!);
+                  }
                   context.read<CommunityProvider>().update(updatedCommunity);
                   context.read<UserProvider>().getProfile();
                   context.pop();

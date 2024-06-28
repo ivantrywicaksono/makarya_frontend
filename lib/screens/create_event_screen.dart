@@ -10,7 +10,8 @@ class CreateEventScreen extends StatefulWidget {
 }
 
 class _CreateEventScreenState extends State<CreateEventScreen> {
-  File? _image;
+  XFile? _image;
+  File? _img;
   ImagePicker picker = ImagePicker();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _locationController = TextEditingController();
@@ -26,28 +27,35 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
 
     setState(() {
       if (pickedFile != null) {
-        _image = File(pickedFile.path);
+        _image = XFile(pickedFile.path);
+        _img = File(pickedFile.path);
       }
     });
   }
 
-  void _simpanOnTap() {
+  void _simpanOnTap() async {
     String path;
     if (_image == null) {
       path = '';
+      return;
     } else {
       path = _image?.path ?? '';
     }
+    var time = DateTime.now().millisecondsSinceEpoch.toString();
+    String uploadImagePath = 'event/$time${_image!.name}';
+    // await FirebaseStorage.instance.ref('event/$time.png').putFile(yourfile);
     Event newEvent = Event(
       id: 0,
       community_id: context.read<UserProvider>().community.id,
       name: _nameController.text,
       location: _locationController.text,
-      image: '',
+      image: uploadImagePath,
       date: _date,
       time: _time,
       price: int.parse(_priceController.text),
     );
+    await FirebaseStorage.instance.ref(uploadImagePath).putFile(_img!);
+
     context.read<EventProvider>().create(newEvent, path);
     context.pop();
   }
@@ -73,7 +81,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: _image != null
-                    ? Image.file(_image!)
+                    ? Image.file(_img!)
                     : Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 48,
@@ -209,7 +217,7 @@ class _CreateEventScreenState extends State<CreateEventScreen> {
             ),
             LabelInput(
               controller: _priceController,
-              type: TextInputType.text,
+              type: TextInputType.number,
               label: 'Harga',
               placeholder: 'e.g. 10.000',
             ),

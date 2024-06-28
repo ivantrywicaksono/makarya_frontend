@@ -52,34 +52,37 @@ class _BerandaKomunitasState extends State<BerandaKomunitas> {
               padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0.0),
               child: Column(
                 children: [
-                  Row(
-                    children: [
-                      FutureBuilder<String>(
-                        future: getImageUrl(community.image),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          } else if (!snapshot.hasData) {
-                            return Text('No data');
-                          } else {
-                            return CircleAvatar(
-                              backgroundImage:
-                                  CachedNetworkImageProvider(snapshot.data!),
-                              radius: 32,
-                            );
-                          }
-                        },
-                      ),
-                      SizedBox(width: 16),
-                      Text(community.name,
-                          style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Poppins')),
-                    ],
+                  GestureDetector(
+                    onTap: () => context.read<UserProvider>().getProfile(),
+                    child: Row(
+                      children: [
+                        FutureBuilder<String>(
+                          future: getImageUrl(community.image),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return CircularProgressIndicator();
+                            } else if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            } else if (!snapshot.hasData) {
+                              return Text('No data');
+                            } else {
+                              return CircleAvatar(
+                                backgroundImage:
+                                    CachedNetworkImageProvider(snapshot.data!),
+                                radius: 32,
+                              );
+                            }
+                          },
+                        ),
+                        SizedBox(width: 16),
+                        Text(community.name,
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'Poppins')),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 10),
                   Text(

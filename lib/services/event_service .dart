@@ -40,19 +40,27 @@ class EventService {
   }
 
   Future<void> create(Event newEvent, String filepath) async {
-    var request = http.MultipartRequest('POST', Utils.getApiUri('/event'))
-      ..fields.addAll(newEvent.toMap())
-      ..headers.addAll(Utils.requestHeaders(contentType: 'multipart/form-data'))
-      ..files.add(await http.MultipartFile.fromPath('image', filepath));
+    // var request = http.MultipartRequest('POST', Utils.getApiUri('/event'))
+    //   ..fields.addAll(newEvent.toMap())
+    //   ..headers.addAll(Utils.requestHeaders(contentType: 'multipart/form-data'))
+    //   ..files.add(await http.MultipartFile.fromPath('image', filepath));
 
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
+    // var streamedResponse = await request.send();
+    // var response = await http.Response.fromStream(streamedResponse);
+
+    final response = await http.post(
+      Utils.getApiUri('/event'),
+      headers: Utils.requestHeaders(),
+      body: jsonEncode(newEvent.toMap()),
+    );
+
     if (response.statusCode == 200) {
       final Map<String, dynamic> data =
           jsonDecode(response.body) as Map<String, dynamic>;
 
-
       Event eventData = Event.fromJson(data);
+      print(eventData.image);
+
       // return eventData;
     } else {
       // If the server did not return a 200 OK response,
@@ -82,6 +90,7 @@ class EventService {
       throw Exception(response.body);
     }
   }
+
   Future<Event> getLatest() async {
     final response = await http.get(
       Utils.getApiUri('/event/latest'),

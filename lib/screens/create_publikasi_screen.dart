@@ -10,7 +10,8 @@ class CreatePublikasiScreen extends StatefulWidget {
 }
 
 class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
-  File? _image;
+  XFile? _image;
+  File? _img;
   ImagePicker picker = ImagePicker();
   TextEditingController _descriptionController = TextEditingController();
 
@@ -19,7 +20,8 @@ class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
 
     setState(() {
       if (pickedFile != null) {
-        _image = File(pickedFile.path);
+        _image = XFile(pickedFile.path);
+        _img = File(pickedFile.path);
       }
     });
   }
@@ -46,7 +48,7 @@ class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: _image != null
-                    ? Image.file(_image!)
+                    ? Image.file(_img!)
                     : Padding(
                         padding: const EdgeInsets.all(32),
                         child: Column(
@@ -94,21 +96,31 @@ class _CreatePublikasiScreenState extends State<CreatePublikasiScreen> {
             SizedBox(height: 50),
             PrimaryButton(
                 text: 'Simpan',
-                onPressed: () {
+                onPressed: () async {
+                  String path;
+                  if (_image == null) {
+                    path = '';
+                    return;
+                  } else {
+                    path = _image?.path ?? '';
+                  }
+                  var time = DateTime.now().millisecondsSinceEpoch.toString();
+                  String uploadImagePath = 'publication/$time${_image!.name}';
                   Publication newPublication = Publication(
                     id: 0,
                     description: _descriptionController.text,
-                    image: 'image',
+                    image: uploadImagePath,
                     created_at: DateTime.now(),
                     artist_id: context.read<UserProvider>().artist.id,
                     artist: context.read<UserProvider>().artist,
                   );
-                  String path;
-                  if (_image == null) {
-                    path = '';
-                  } else {
-                    path = _image?.path ?? '';
-                  }
+
+                  print(_image!.name);
+                  print('images/$time${_image!.name}');
+                  await FirebaseStorage.instance
+                      .ref(uploadImagePath)
+                      .putFile(_img!);
+
                   context
                       .read<PublicationProvider>()
                       .create(newPublication, path);

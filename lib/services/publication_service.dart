@@ -8,13 +8,15 @@ class PublicationService {
     );
 
     if (response.statusCode == 200) {
-      final Map<String, dynamic> data = jsonDecode(response.body) as Map<String, dynamic>;
+      final Map<String, dynamic> data =
+          jsonDecode(response.body) as Map<String, dynamic>;
       Publication popular = Publication.fromJson(data);
       return popular;
     } else {
       throw Exception(response.body);
     }
   }
+
   Future<Publication> get(int id) async {
     final response = await http.get(
       Utils.getApiUri('/publication/$id'),
@@ -22,7 +24,8 @@ class PublicationService {
     );
 
     if (response.statusCode == 200) {
-      final Map<String, dynamic> data = jsonDecode(response.body) as Map<String, dynamic>;
+      final Map<String, dynamic> data =
+          jsonDecode(response.body) as Map<String, dynamic>;
       Publication publication = Publication.fromJson(data);
       return publication;
     } else {
@@ -41,12 +44,11 @@ class PublicationService {
       throw Exception(response.body);
     }
   }
+
   Future<void> update(int id, String description) async {
-    final response = await http.put(
-      Utils.getApiUri('/publication/$id'),
-      headers: Utils.requestHeaders(),
-      body: jsonEncode({"description": description})
-    );
+    final response = await http.put(Utils.getApiUri('/publication/$id'),
+        headers: Utils.requestHeaders(),
+        body: jsonEncode({"description": description}));
 
     if (response.statusCode == 200) {
     } else {
@@ -55,19 +57,26 @@ class PublicationService {
   }
 
   Future<void> create(Publication newPublication, String filepath) async {
-    var request = http.MultipartRequest('POST', Utils.getApiUri('/publication'))
-      ..fields.addAll(newPublication.toMap())
-      ..headers.addAll(Utils.requestHeaders(contentType: 'multipart/form-data'))
-      ..files.add(await http.MultipartFile.fromPath('image', filepath));
+    // var request = http.MultipartRequest('POST', Utils.getApiUri('/publication'))
+    //   ..fields.addAll(newPublication.toMap());
+    // ..headers.addAll(Utils.requestHeaders(contentType: 'multipart/form-data'))
+    // ..files.add(await http.MultipartFile.fromPath('image', filepath));
 
-    var streamedResponse = await request.send();
-    var response = await http.Response.fromStream(streamedResponse);
+    // var streamedResponse = await request.send();
+    // var response = await http.Response.fromStream(streamedResponse);
+
+    final response = await http.post(
+      Utils.getApiUri('/publication/'),
+      headers: Utils.requestHeaders(),
+      body: jsonEncode(newPublication),
+    );
+
     if (response.statusCode == 200) {
-      final Map<String, dynamic> data = jsonDecode(response.body) as Map<String, dynamic>;
-
+      final Map<String, dynamic> data =
+          jsonDecode(response.body) as Map<String, dynamic>;
 
       Publication publicationData = Publication.fromJson(data);
-
+      print(publicationData.image);
       // return publicationData;
     } else {
       // If the server did not return a 200 OK response,
@@ -77,11 +86,6 @@ class PublicationService {
   }
 
   Future<List<Publication>> getAll([int id = 0]) async {
-    final FirebaseStorage storage = FirebaseStorage.instance;
-    final Reference storageRef = FirebaseStorage.instance.ref();
-    final Reference imagesRef = storageRef.child("publication");
-    final Reference imageRef = storageRef.child("publication/test_pub.png");
-
     String endPoint = id > 0 ? '/publication/artist/$id' : '/publication';
     final response = await http.get(
       Utils.getApiUri(endPoint),
@@ -95,7 +99,6 @@ class PublicationService {
       List<Publication> publicationsData = parsed
           .map<Publication>((json) => Publication.fromJson(json))
           .toList();
-
 
       return publicationsData;
     } else {
